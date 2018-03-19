@@ -7,6 +7,12 @@
 #include "process.h"
 #include "normal.h"
 
+/** \brief A general class for Monte-Carlo simulation
+*
+* In this class we compute naive MC estimators (with confidence interval) given a random variable.
+* We also implement different variance reduction techniques.
+*/
+
 template <typename Generator> class monte_carlo
 {
 public:
@@ -16,13 +22,19 @@ public:
     monte_carlo(random_variable<Generator> * rv);
     ~monte_carlo();
 
-    /// Getters & setters
+    /// Getter
     double get_precision();
+    /// Getter
     unsigned int get_cap();
+    /// Getter
     double get_mean();
+    /// Getter
     double get_std();
+    /// Getter
     std::pair<double, double> get_confidence_interval();
+    /// Setter
     void set_precision(double p);
+    /// Setter
     void set_cap(unsigned int c);
 
     /// Simulation of one realisation of the random variable
@@ -57,7 +69,7 @@ template <typename Generator> monte_carlo<Generator>::monte_carlo(){
     empirical_std = 0.;
     ci_l_bound = 0.;
     ci_h_bound = 0.;
-    /// By default, the variable we intergrate is a N(0, 1)
+    /// By default, the variable we integrate is a N(0, 1)
     variable = new normal<Generator>(0., 1.);
 };
 

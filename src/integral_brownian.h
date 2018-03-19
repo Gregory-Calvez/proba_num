@@ -8,6 +8,10 @@
 #include "process.h"
 #include "brownian.h"
 
+/** \brief A class to simulate the integral of a Brownian Motion with a classical Euler scheme.
+*
+* Mainly used for testing.
+*/
 template<typename Generator> class integral_brownian: public random_variable<Generator>
 {
 /*

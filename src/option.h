@@ -3,34 +3,44 @@
 #include "process.h"
 #include "cir.h"
 
+/** \brief A class to code an option
+*
+* The option can be both European or Asian.
+*/
 template<typename Generator, typename Heston> class option : public random_variable<Generator>
 {
 public:
-  //Constructors and destructors
+  ///Constructor
   option();
+  ///Destructor
   ~option();
+  ///Constructor
   option(double maturity, double strike, double cir_0, double x_0,
     double a, double k, double sigma, double rho, double r, char type);
 
+  ///Computes the payoff of the option
   double payoff(std::vector<std::vector<double>> trajectory);
+  ///Function to test log_spot_one
   double test_log_spot_one(std::vector<std::vector<double>> trajectory);
   double operator()(Generator & gen);
+  ///Setter
   void set_num_steps(unsigned int n);
+  ///Getter
   double theoretical_log_spot_one();
 
 
 private:
   //Option parameters
-  double maturity;
-  double strike;
-  char type;
+  double maturity; /**<Expiry of the option */
+  double strike;/**<Strike of the option */
+  char type; /**<Type of the option : 'e' for European and 'a' for Asian */
 
   //Heston parameters
-  double r;
-  double a;
-  double k;
-  double sigma;
-  double rho;
+  double r; /**<Interest rate */
+  double a; /**<Heston parameter*/
+  double k; /**<Heston parameter*/
+  double sigma; /**<Heston parameter*/
+  double rho; /**<Heston parameter*/
   Heston heston;
 };
 

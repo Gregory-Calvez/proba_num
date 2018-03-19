@@ -2,6 +2,11 @@
 #include "random_variable.h"
 #include "process.h"
 
+/** \brief A class to discretize a Brownian Motion with a classical Euler scheme.
+*
+* Mainly used for testing. 
+*/
+
 template<typename Generator> class brownian : public process<Generator>
 {
 public:

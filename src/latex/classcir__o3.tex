@@ -1,0 +1,87 @@
+\hypertarget{classcir__o3}{}\section{cir\+\_\+o3$<$ Generator $>$ Class Template Reference}
+\label{classcir__o3}\index{cir\+\_\+o3$<$ Generator $>$@{cir\+\_\+o3$<$ Generator $>$}}
+
+
+A scheme of order 3 for the C\+IR process.  
+
+
+
+
+{\ttfamily \#include $<$cir.\+h$>$}
+
+Inheritance diagram for cir\+\_\+o3$<$ Generator $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classcir__o3}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcir__o3_a73106636672bfd0236b2272e480a521c}\label{classcir__o3_a73106636672bfd0236b2272e480a521c}} 
+\mbox{\hyperlink{classcir__o3_a73106636672bfd0236b2272e480a521c}{cir\+\_\+o3}} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcir__o3_adda0ca25019f56ef8987af11c1b6a9ad}\label{classcir__o3_adda0ca25019f56ef8987af11c1b6a9ad}} 
+\mbox{\hyperlink{classcir__o3_adda0ca25019f56ef8987af11c1b6a9ad}{cir\+\_\+o3}} (double \mbox{\hyperlink{classprocess_ab4d01c8ea2e9c8285134786d32ae42aa}{state\+\_\+0}}, double \mbox{\hyperlink{classcir_aa5b05ff03ee8bb587ea94426a9ce704b}{k}}, double \mbox{\hyperlink{classcir_a358578305ea60d31c00546233304651c}{a}}, double s)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcir__o3_a8d51e7530a1170a835b548b601746537}\label{classcir__o3_a8d51e7530a1170a835b548b601746537}} 
+\mbox{\hyperlink{classcir__o3_a8d51e7530a1170a835b548b601746537}{$\sim$cir\+\_\+o3}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcir__o3_a77d0f79c0634f1d6cd19017e56eab451}\label{classcir__o3_a77d0f79c0634f1d6cd19017e56eab451}} 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classcir__o3_a77d0f79c0634f1d6cd19017e56eab451}{next\+\_\+step}} (Generator \&gen, std\+::vector$<$ double $>$ state, double t)
+\begin{DoxyCompactList}\small\item\em Pure virtual function. Will be implemented in the different schemes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::uniform\+\_\+real\+\_\+distribution$<$ double $>$ \mbox{\hyperlink{classcir__o3_a0e08c2c516a7f821a4a3ee8f9b0cf162}{u}}
+\item 
+\mbox{\hyperlink{classnormal__seven__moments}{normal\+\_\+seven\+\_\+moments}}$<$ Generator $>$ \mbox{\hyperlink{classcir__o3_a22d7ad16bc9bfb168095ab16ff0bc685}{seven}}
+\item 
+\mbox{\hyperlink{classzeta}{zeta}}$<$ Generator $>$ \mbox{\hyperlink{classcir__o3_aff6081fa06fbab8fd8bf06bbef2bf7c4}{zet}}
+\item 
+\mbox{\hyperlink{classrademacher}{rademacher}}$<$ Generator $>$ \mbox{\hyperlink{classcir__o3_a5ed2b331f33db9c48fde052e1a15a1d1}{rad}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Generator$>$\newline
+class cir\+\_\+o3$<$ Generator $>$}
+
+A scheme of order 3 for the C\+IR process. 
+
+This class implements the Ninomiya-\/\+Victoir scheme for the C\+IR. It is of order 3. 
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classcir__o3_a5ed2b331f33db9c48fde052e1a15a1d1}\label{classcir__o3_a5ed2b331f33db9c48fde052e1a15a1d1}} 
+\index{cir\+\_\+o3@{cir\+\_\+o3}!rad@{rad}}
+\index{rad@{rad}!cir\+\_\+o3@{cir\+\_\+o3}}
+\subsubsection{\texorpdfstring{rad}{rad}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+\mbox{\hyperlink{classrademacher}{rademacher}}$<$Generator$>$ \mbox{\hyperlink{classcir__o3}{cir\+\_\+o3}}$<$ Generator $>$\+::rad\hspace{0.3cm}{\ttfamily [protected]}}
+
+A Rademacher random variable \mbox{\Hypertarget{classcir__o3_a22d7ad16bc9bfb168095ab16ff0bc685}\label{classcir__o3_a22d7ad16bc9bfb168095ab16ff0bc685}} 
+\index{cir\+\_\+o3@{cir\+\_\+o3}!seven@{seven}}
+\index{seven@{seven}!cir\+\_\+o3@{cir\+\_\+o3}}
+\subsubsection{\texorpdfstring{seven}{seven}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+\mbox{\hyperlink{classnormal__seven__moments}{normal\+\_\+seven\+\_\+moments}}$<$Generator$>$ \mbox{\hyperlink{classcir__o3}{cir\+\_\+o3}}$<$ Generator $>$\+::seven\hspace{0.3cm}{\ttfamily [protected]}}
+
+A random variable with the same first seven moments as a standard Gaussian \mbox{\Hypertarget{classcir__o3_a0e08c2c516a7f821a4a3ee8f9b0cf162}\label{classcir__o3_a0e08c2c516a7f821a4a3ee8f9b0cf162}} 
+\index{cir\+\_\+o3@{cir\+\_\+o3}!u@{u}}
+\index{u@{u}!cir\+\_\+o3@{cir\+\_\+o3}}
+\subsubsection{\texorpdfstring{u}{u}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+std\+::uniform\+\_\+real\+\_\+distribution$<$double$>$ \mbox{\hyperlink{classcir__o3}{cir\+\_\+o3}}$<$ Generator $>$\+::u\hspace{0.3cm}{\ttfamily [protected]}}
+
+A uniform variable on \mbox{[}0,1\mbox{]} \mbox{\Hypertarget{classcir__o3_aff6081fa06fbab8fd8bf06bbef2bf7c4}\label{classcir__o3_aff6081fa06fbab8fd8bf06bbef2bf7c4}} 
+\index{cir\+\_\+o3@{cir\+\_\+o3}!zet@{zet}}
+\index{zet@{zet}!cir\+\_\+o3@{cir\+\_\+o3}}
+\subsubsection{\texorpdfstring{zet}{zet}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+\mbox{\hyperlink{classzeta}{zeta}}$<$Generator$>$ \mbox{\hyperlink{classcir__o3}{cir\+\_\+o3}}$<$ Generator $>$\+::zet\hspace{0.3cm}{\ttfamily [protected]}}
+
+A uniform variable on \{1,2,3\} 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+cir.\+h\end{DoxyCompactItemize}

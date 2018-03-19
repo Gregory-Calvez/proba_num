@@ -6,44 +6,74 @@
 #include "random_variable.h"
 #include "monte_carlo.h"
 
+/** \brief A general class to code the discretization of a stochastic process on the time interval [0,T]
+*
+* The discretization scheme can be fixed either by chosing the time horizon (time_end)
+* or the number of steps (num_steps).
+*/
+
+
 template<typename Generator>
 class process
 {
 public:
-    /// Constructors & destructors
+    /// Constructor
     process();
+    ///Destructor
     ~process();
-    // process(process<Generator> & p);
 
 
-    /// Setters
+    /// Setter
     void set_time_end(double t);
+    /// Setter
     void set_num_steps(unsigned int n);
+    /// Setter
     void set_state_0(std::vector<double> s);
+    /// Setter
     void set_time_grid();
+    /// Setter
     void set_state(std::vector<double> s);
-    /// Getters
+    /// Getter
     unsigned int get_num_steps();
+    /// Getter
     std::vector<double> get_state_0();
+    /// Getter
     double get_time_end();
+    /// Getter
     double get_time_step();
 
+    //! For plotting
+    /*!
+      Computes and plots num_plot instances of the discretized process.
+      The method writes the relevant data in a .dat file and calls gnuplot for plotting
+    */
     void write_to_plot(Generator & gen, unsigned int num_plots, int coordinate);
-
-    /// Useful methods
+    //! Function Next Step
+    /*!
+    *  Pure virtual function that will be over-written for every instance of process.
+    *  Computes the value of the discretized process at time t + time_step.
+    *  The value of the discretized process at t is stored in state.
+    */
     virtual std::vector<double> next_step(Generator & gen, std::vector<double> state, double t) = 0;
+    //! Operator()
+    /*!
+      Overloads the operator ().
+      Allows to draw a new instance of the discretized process.
+    */
     std::vector<std::vector<double> > operator() (Generator & gen);
+    //! Prints the results of the discretization
     void print_trajectory(int coordinate);
 
 protected:
     unsigned int dimension;
-    double time_step; // delta_t
-    double time_end; // Simulation between 0 and time_end
-    unsigned int num_steps; // number of steps in time discretization
-    std::vector<double> state_0; // initial value for the process at time t = 0
+    double time_step; /**< Time step of the discretization */
+    double time_end; /**<Simulation between 0 and time_end */
+    unsigned int num_steps; /**<Number of steps in time discretization*/
+    std::vector<double> state_0; /**<Initial value for the process at time t = 0 */
     std::vector<double> state;
     std::vector<double> time_grid; // time grid
-    std::vector<std::vector<double> > trajectory; // the values taken by the proess
+    std::vector<std::vector<double> > trajectory; /**<Vector of vectors used to compute the values taken by the process
+                                                  This choice is motivated by the mutli-dimensional Heston model */
     bool computed; // boolean: true if trajectory has been computed
 };
 

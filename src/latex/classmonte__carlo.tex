@@ -1,0 +1,145 @@
+\hypertarget{classmonte__carlo}{}\section{monte\+\_\+carlo$<$ Generator $>$ Class Template Reference}
+\label{classmonte__carlo}\index{monte\+\_\+carlo$<$ Generator $>$@{monte\+\_\+carlo$<$ Generator $>$}}
+
+
+A general class for Monte-\/\+Carlo simulation.  
+
+
+
+
+{\ttfamily \#include $<$monte\+\_\+carlo.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmonte__carlo_a602098d8c4cd2400e8b6036a7526437d}{monte\+\_\+carlo}} ()
+\begin{DoxyCompactList}\small\item\em Constructors \& destructors. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmonte__carlo_a3c7619083f106006f7549bfa21af0b70}{monte\+\_\+carlo}} (\mbox{\hyperlink{classrandom__variable}{random\+\_\+variable}}$<$ Generator $>$ $\ast$rv)
+\item 
+\mbox{\Hypertarget{classmonte__carlo_ae8ba9ec39bb65da0a1d4c5881c3c57d9}\label{classmonte__carlo_ae8ba9ec39bb65da0a1d4c5881c3c57d9}} 
+double \mbox{\hyperlink{classmonte__carlo_ae8ba9ec39bb65da0a1d4c5881c3c57d9}{get\+\_\+precision}} ()
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmonte__carlo_af73122a99655bfdd93d5b72f32ea8ff1}\label{classmonte__carlo_af73122a99655bfdd93d5b72f32ea8ff1}} 
+unsigned int \mbox{\hyperlink{classmonte__carlo_af73122a99655bfdd93d5b72f32ea8ff1}{get\+\_\+cap}} ()
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmonte__carlo_af771b7b89e0ff85acfff8d6156a35cbf}\label{classmonte__carlo_af771b7b89e0ff85acfff8d6156a35cbf}} 
+double \mbox{\hyperlink{classmonte__carlo_af771b7b89e0ff85acfff8d6156a35cbf}{get\+\_\+mean}} ()
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmonte__carlo_afff42d06090878c287928c375e9713d2}\label{classmonte__carlo_afff42d06090878c287928c375e9713d2}} 
+double \mbox{\hyperlink{classmonte__carlo_afff42d06090878c287928c375e9713d2}{get\+\_\+std}} ()
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmonte__carlo_a1e83d23fdb90bc2680a2820151250c6f}\label{classmonte__carlo_a1e83d23fdb90bc2680a2820151250c6f}} 
+std\+::pair$<$ double, double $>$ \mbox{\hyperlink{classmonte__carlo_a1e83d23fdb90bc2680a2820151250c6f}{get\+\_\+confidence\+\_\+interval}} ()
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmonte__carlo_a4630da58a98e8f080c124b6be1239849}\label{classmonte__carlo_a4630da58a98e8f080c124b6be1239849}} 
+void \mbox{\hyperlink{classmonte__carlo_a4630da58a98e8f080c124b6be1239849}{set\+\_\+precision}} (double p)
+\begin{DoxyCompactList}\small\item\em Setter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmonte__carlo_aa73333519c4f888338def6b93a125304}\label{classmonte__carlo_aa73333519c4f888338def6b93a125304}} 
+void \mbox{\hyperlink{classmonte__carlo_aa73333519c4f888338def6b93a125304}{set\+\_\+cap}} (unsigned int c)
+\begin{DoxyCompactList}\small\item\em Setter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmonte__carlo_ad4dbf4b40cadbacc3beadd7fd3721d0b}\label{classmonte__carlo_ad4dbf4b40cadbacc3beadd7fd3721d0b}} 
+double \mbox{\hyperlink{classmonte__carlo_ad4dbf4b40cadbacc3beadd7fd3721d0b}{simulate}} (Generator \&gen)
+\begin{DoxyCompactList}\small\item\em Simulation of one realisation of the random variable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmonte__carlo_a598c1fbac6b56ee278fd04bf6115b1d3}{compute}} (Generator \&gen)
+\begin{DoxyCompactList}\small\item\em Computations of a naive Monte Carlo estimator. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmonte__carlo_a5fb1de57e0f77deb8ff167589b9e8b9e}{print}} ()
+\begin{DoxyCompactList}\small\item\em Printing the results. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_ad179708fe615012fcaa71adfb013cf3b}\label{classmonte__carlo_ad179708fe615012fcaa71adfb013cf3b}} 
+\mbox{\hyperlink{classrandom__variable}{random\+\_\+variable}}$<$ Generator $>$ $\ast$ {\bfseries variable}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_a62d218e17216c5cd8db237d2e446f950}\label{classmonte__carlo_a62d218e17216c5cd8db237d2e446f950}} 
+bool {\bfseries computed}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_a7ef35469245e3f4d91c822ece547aa66}\label{classmonte__carlo_a7ef35469245e3f4d91c822ece547aa66}} 
+bool {\bfseries successful}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_a27a554ebe8e1847fee8291ed93f24423}\label{classmonte__carlo_a27a554ebe8e1847fee8291ed93f24423}} 
+double {\bfseries precision}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_ac0f656225be3c3d9bf7eb0edfa4e95c6}\label{classmonte__carlo_ac0f656225be3c3d9bf7eb0edfa4e95c6}} 
+unsigned int {\bfseries cap\+\_\+iterations}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_ade5ed60cafd32398a80daf71859a824e}\label{classmonte__carlo_ade5ed60cafd32398a80daf71859a824e}} 
+unsigned int {\bfseries count}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_aedf0cabb9a89b2b02aa63dc8b00e34d5}\label{classmonte__carlo_aedf0cabb9a89b2b02aa63dc8b00e34d5}} 
+double {\bfseries empirical\+\_\+mean}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_af698280f1f16c333b108f06e41b45c7e}\label{classmonte__carlo_af698280f1f16c333b108f06e41b45c7e}} 
+double {\bfseries empirical\+\_\+var}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_a22d78794a12eabe859d6249b7206aa6a}\label{classmonte__carlo_a22d78794a12eabe859d6249b7206aa6a}} 
+double {\bfseries empirical\+\_\+std}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_ad02f29a48b9977ff00ec9044bfde2f03}\label{classmonte__carlo_ad02f29a48b9977ff00ec9044bfde2f03}} 
+double {\bfseries ci\+\_\+l\+\_\+bound}
+\item 
+\mbox{\Hypertarget{classmonte__carlo_a2c0e5849e8a88c643706159019b24476}\label{classmonte__carlo_a2c0e5849e8a88c643706159019b24476}} 
+double {\bfseries ci\+\_\+h\+\_\+bound}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Generator$>$\newline
+class monte\+\_\+carlo$<$ Generator $>$}
+
+A general class for Monte-\/\+Carlo simulation. 
+
+In this class we compute naive MC estimators (with confidence interval) given a random variable. We also implement different variance reduction techniques. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmonte__carlo_a602098d8c4cd2400e8b6036a7526437d}\label{classmonte__carlo_a602098d8c4cd2400e8b6036a7526437d}} 
+\index{monte\+\_\+carlo@{monte\+\_\+carlo}!monte\+\_\+carlo@{monte\+\_\+carlo}}
+\index{monte\+\_\+carlo@{monte\+\_\+carlo}!monte\+\_\+carlo@{monte\+\_\+carlo}}
+\subsubsection{\texorpdfstring{monte\+\_\+carlo()}{monte\_carlo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+\mbox{\hyperlink{classmonte__carlo}{monte\+\_\+carlo}}$<$ Generator $>$\+::\mbox{\hyperlink{classmonte__carlo}{monte\+\_\+carlo}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructors \& destructors. 
+
+All this are default values
+
+By default, the variable we integrate is a N(0, 1) \mbox{\Hypertarget{classmonte__carlo_a3c7619083f106006f7549bfa21af0b70}\label{classmonte__carlo_a3c7619083f106006f7549bfa21af0b70}} 
+\index{monte\+\_\+carlo@{monte\+\_\+carlo}!monte\+\_\+carlo@{monte\+\_\+carlo}}
+\index{monte\+\_\+carlo@{monte\+\_\+carlo}!monte\+\_\+carlo@{monte\+\_\+carlo}}
+\subsubsection{\texorpdfstring{monte\+\_\+carlo()}{monte\_carlo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+\mbox{\hyperlink{classmonte__carlo}{monte\+\_\+carlo}}$<$ Generator $>$\+::\mbox{\hyperlink{classmonte__carlo}{monte\+\_\+carlo}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrandom__variable}{random\+\_\+variable}}$<$ Generator $>$ $\ast$}]{rv }\end{DoxyParamCaption})}
+
+The random variable we want to integrate
+
+All these are default values. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmonte__carlo_a598c1fbac6b56ee278fd04bf6115b1d3}\label{classmonte__carlo_a598c1fbac6b56ee278fd04bf6115b1d3}} 
+\index{monte\+\_\+carlo@{monte\+\_\+carlo}!compute@{compute}}
+\index{compute@{compute}!monte\+\_\+carlo@{monte\+\_\+carlo}}
+\subsubsection{\texorpdfstring{compute()}{compute()}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+void \mbox{\hyperlink{classmonte__carlo}{monte\+\_\+carlo}}$<$ Generator $>$\+::compute (\begin{DoxyParamCaption}\item[{Generator \&}]{gen }\end{DoxyParamCaption})}
+
+
+
+Computations of a naive Monte Carlo estimator. 
+
+This is the method that computes a naive MC estimator \mbox{\Hypertarget{classmonte__carlo_a5fb1de57e0f77deb8ff167589b9e8b9e}\label{classmonte__carlo_a5fb1de57e0f77deb8ff167589b9e8b9e}} 
+\index{monte\+\_\+carlo@{monte\+\_\+carlo}!print@{print}}
+\index{print@{print}!monte\+\_\+carlo@{monte\+\_\+carlo}}
+\subsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+void \mbox{\hyperlink{classmonte__carlo}{monte\+\_\+carlo}}$<$ Generator $>$\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Printing the results. 
+
+Printing our results properly 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+monte\+\_\+carlo.\+h\end{DoxyCompactItemize}

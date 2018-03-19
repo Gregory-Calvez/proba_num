@@ -216,7 +216,7 @@ int main(){
         new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
 
     std::vector<int> num_steps = {5, 10, 15, 20, 30, 50, 100};
-    int cap = 1e5;
+    int cap = 4*1e7;
     double precision = 1e-4;
     double exact_value = 6.144;
     std::vector<std::vector<double> > data = std::vector<std::vector<double> > ();

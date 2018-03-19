@@ -2,36 +2,40 @@
 #include "process.h"
 #include "cir.h"
 
+/** \brief Generation of a class with a Heston process
+*
+* The class heston implements the class process.
+* We compute the classical Heston model, along with the integrals of the price and the vol.
+*/
 template<typename Generator, typename Cir> class heston : public process<Generator>
 {
 public:
-    /// Constructors & destructors
+    /// Constructor
     heston();
+    /// Destructor
     ~heston();
+    /// Constructor
     heston(double cir_0, double x_0, double a, double k, double sigma, double rho, double r);
     // heston(heston<Generator & h);
 
-    /// Getters and setters
-
-    /// Functions
     std::vector<double> hw(Generator & gen, std::vector<double> state, double t);
     std::vector<double> hz(Generator & gen, std::vector<double> state, double t);
     std::vector<double> next_step(Generator & gen, std::vector<double> state, double t);
+    /*! Computes the exact mean of log(S_t) where S is the price process.
+      Useful for variance reduction by a control variate technique.
+    */
     double log_spot_one(double t);
 
 private:
-    // X_1, .., X_4 pour tout temps.
-    // We still keep only the stock price, which is of interest
-    // in the process member.
-    double x_0;
-    double cir_0;
-    double r;
-    double a;
-    double k;
-    double sigma;
-    double rho;
-    std::bernoulli_distribution bernoulli;
-    std::normal_distribution<double> norm;
+    double x_0; /**<Initial value of price */
+    double cir_0; /**<Initial value of vol of vol */
+    double r; /**<Interest rate */
+    double a;/**<CIR parameter */
+    double k; /**<CIR parameter */
+    double sigma;/**<CIR parameter */
+    double rho;/**<Correlation between brownian motions */
+    std::bernoulli_distribution bernoulli; /**<A Bernouilli random variable */
+    std::normal_distribution<double> norm;/**<A standard normal random variable */
     Cir cir;
 };
 

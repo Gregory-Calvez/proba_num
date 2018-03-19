@@ -3,13 +3,15 @@
 #include <iostream>
 #include <math.h>
 
-
+/** \brief A general class to implement a random variable
+*/
 
 template<typename Generator> class random_variable
 {
 public:
-    /// Constructors & destructors
+    /// Constructor
     random_variable();
+    /// Destructor
     ~random_variable();
     /// Printing
     void print();
@@ -37,4 +39,3 @@ template <typename Generator> void random_variable<Generator>::print(){
         std::cout << realisation << std::endl;
     };
 };
-

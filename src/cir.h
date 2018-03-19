@@ -3,27 +3,34 @@
 #include "normal.h"
 #include "process.h"
 
+/** \brief Generation of a class with a CIR process
+*
+* The class cir implements the class process.
+* The CIR follows the dynamics dX = (a - kX) dt + sigma sqrt(X) dW  with X(0) = x_0
+*/
 template <typename Generator> class cir : public process<Generator>
 {
-    /// Generation of a class with a CIR process
-    /// dX = (a - kX) dt + sigma sqrt(X) dW
-    /// X(0) = x_0
 public:
-    /// Constructors & destructors
+    /// Constructor
     cir();
+    /// Constructor
     cir(double state_0, double k, double a, double s);
+    /// Destructor
     ~cir();
-    // cir(cir<Generator> & c
+    ///Pure virtual function. Will be implemented in the different schemes.
     virtual std::vector<double> next_step(Generator & gen, std::vector<double> state, double t) = 0;
-    /// Getters and Setters
+    /// Getter
     double get_a();
+    /// Getter
     double get_sigma();
+    /// Setter
     void set_a(double a);
+    /// Setter
     void set_sigma(double s);
 protected:
-    double a;
-    double sigma;
-    double k;
+    double a; /**<Target value for CIR */
+    double sigma; /**<Volatility of volatility */
+    double k; /**<Mean reverting speed */
 };
 
 template <typename Generator> cir<Generator>::cir(): cir(1., 0., 1., 1.) {
@@ -59,26 +66,24 @@ template <typename Generator> void cir<Generator>::set_sigma(double s){
     this->sigma = s;
 };
 
-//////////
-/// CIR_O2
-//////////
+/** \brief A scheme of order 2 for the CIR process
+*
+* This class implements the Ninomiya-Victoir scheme for the CIR. It is of order 2.
+*/
 template <typename Generator> class cir_o2 : public cir<Generator>
 {
-    /// Generation of a class with a CIR process
-    /// dX = (a - kX) dt + sigma sqrt(X) dW
-    /// X(0) = x_0
 public:
-    /// Constructors & destructors
+    /// Constructor
     cir_o2();
+    /// Constructor
     cir_o2(double state_0, double k, double a, double s);
+    /// Destructor
     ~cir_o2();
-    // cir(cir<Generator> & c);
 
     std::vector<double> next_step(Generator & gen, std::vector<double> state, double t);
-    /// Getters and Setters
 protected:
-    std::uniform_real_distribution<double> u;
-    normal_five_moments<Generator> y;
+    std::uniform_real_distribution<double> u; /**<A uniform variable on [0,1]*/
+    normal_five_moments<Generator> y; /**<A random variable with the same first five moments as a standard Gaussian*/
 };
 
 double psi_f(double k, double t){
@@ -171,28 +176,26 @@ template<typename Generator> std::vector<double> cir_o2<Generator>::next_step(Ge
     };
 };
 
-//////////////////
-/// CIR_O3
-//////////////////
+/** \brief A scheme of order 3 for the CIR process
+*
+* This class implements the Ninomiya-Victoir scheme for the CIR. It is of order 3.
+*/
 template <typename Generator> class cir_o3 : public cir<Generator>
 {
-    /// Generation of a class with a CIR process
-    /// dX = (a - kX) dt + sigma sqrt(X) dW
-    /// X(0) = x_0
 public:
-    /// Constructors & destructors
+    /// Constructor
     cir_o3();
+    /// Constructor
     cir_o3(double state_0, double k, double a, double s);
+    /// Destructor
     ~cir_o3();
-    // cir(cir<Generator> & c);
 
     std::vector<double> next_step(Generator & gen, std::vector<double> state, double t);
-    /// Getters and Setters
 protected:
-    std::uniform_real_distribution<double> u;
-    normal_seven_moments<Generator> seven;
-    zeta<Generator> zet;
-    rademacher<Generator> rad;
+    std::uniform_real_distribution<double> u; /**<A uniform variable on [0,1]*/
+    normal_seven_moments<Generator> seven; /**<A random variable with the same first seven moments as a standard Gaussian*/
+    zeta<Generator> zet; /**<A uniform variable on {1,2,3}*/
+    rademacher<Generator> rad; /**<A Rademacher random variable*/
 };
 
 double X_0_f(double x, double t, double sigma, double a, double k){
@@ -349,28 +352,30 @@ template<typename Generator> std::vector<double> cir_o3<Generator>::next_step(Ge
 };
 
 
-//////////////////
-/// CIR_glasserman
-//////////////////
+/** \brief An exact scheme for the CIR process
+*
+* This class implements an exact scheme of discretization of the CIR process.
+* It exploits the knowledge of the transition law of this process.
+* It can be found in a book of Paul Glasserman.
+*/
 template <typename Generator> class cir_glasserman : public cir<Generator>
 {
-    /// Generation of a class with a CIR process
-    /// dX = (a - kX) dt + sigma sqrt(X) dW
-    /// X(0) = x_0
 public:
-    /// Constructors & destructors
+    /// Constructor
     cir_glasserman();
+    /// Constructor
     cir_glasserman(double state_0, double k, double a, double s);
+    /// Destructor
     ~cir_glasserman();
     // cir(cir<Generator> & c);
 
     std::vector<double> next_step(Generator & gen, std::vector<double> state, double t);
     /// Getters and Setters
 protected:
-    std::poisson_distribution<int> n_poisson;
-    std::chi_squared_distribution<double> x_chi;
-    std::normal_distribution<double> z_norm;
-    double d;
+    std::poisson_distribution<int> n_poisson; /**<A Poisson random variable*/
+    std::chi_squared_distribution<double> x_chi; /**<A Chi squared random variable*/
+    std::normal_distribution<double> z_norm; /**<A standard Normal random variable*/
+    double d; /**<An auxiliary variable*/
 };
 
 template<typename Generator> cir_glasserman<Generator>::cir_glasserman(): cir_glasserman<Generator> (1, 1, 1, 1)

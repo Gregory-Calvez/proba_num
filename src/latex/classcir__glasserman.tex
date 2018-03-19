@@ -1,0 +1,91 @@
+\hypertarget{classcir__glasserman}{}\section{cir\+\_\+glasserman$<$ Generator $>$ Class Template Reference}
+\label{classcir__glasserman}\index{cir\+\_\+glasserman$<$ Generator $>$@{cir\+\_\+glasserman$<$ Generator $>$}}
+
+
+An exact scheme for the C\+IR process.  
+
+
+
+
+{\ttfamily \#include $<$cir.\+h$>$}
+
+Inheritance diagram for cir\+\_\+glasserman$<$ Generator $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classcir__glasserman}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcir__glasserman_a992c04280cd4f2bca585df0e940cd928}\label{classcir__glasserman_a992c04280cd4f2bca585df0e940cd928}} 
+\mbox{\hyperlink{classcir__glasserman_a992c04280cd4f2bca585df0e940cd928}{cir\+\_\+glasserman}} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcir__glasserman_aa17f7ef0554ccd8a8e96779e9c8c501d}\label{classcir__glasserman_aa17f7ef0554ccd8a8e96779e9c8c501d}} 
+\mbox{\hyperlink{classcir__glasserman_aa17f7ef0554ccd8a8e96779e9c8c501d}{cir\+\_\+glasserman}} (double \mbox{\hyperlink{classprocess_ab4d01c8ea2e9c8285134786d32ae42aa}{state\+\_\+0}}, double \mbox{\hyperlink{classcir_aa5b05ff03ee8bb587ea94426a9ce704b}{k}}, double \mbox{\hyperlink{classcir_a358578305ea60d31c00546233304651c}{a}}, double s)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcir__glasserman_a75da65ee14fd95b6352e76a432144122}\label{classcir__glasserman_a75da65ee14fd95b6352e76a432144122}} 
+\mbox{\hyperlink{classcir__glasserman_a75da65ee14fd95b6352e76a432144122}{$\sim$cir\+\_\+glasserman}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcir__glasserman_aa3a48d9de6edccd4bfb8a52a5e5ad3df}\label{classcir__glasserman_aa3a48d9de6edccd4bfb8a52a5e5ad3df}} 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classcir__glasserman_aa3a48d9de6edccd4bfb8a52a5e5ad3df}{next\+\_\+step}} (Generator \&gen, std\+::vector$<$ double $>$ state, double t)
+\begin{DoxyCompactList}\small\item\em Pure virtual function. Will be implemented in the different schemes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::poisson\+\_\+distribution$<$ int $>$ \mbox{\hyperlink{classcir__glasserman_aed2bd8f09e275a2fd0012989771c61f7}{n\+\_\+poisson}}
+\begin{DoxyCompactList}\small\item\em Getters and Setters. \end{DoxyCompactList}\item 
+std\+::chi\+\_\+squared\+\_\+distribution$<$ double $>$ \mbox{\hyperlink{classcir__glasserman_a1f91410b367839c4b81e8e89e9597848}{x\+\_\+chi}}
+\item 
+std\+::normal\+\_\+distribution$<$ double $>$ \mbox{\hyperlink{classcir__glasserman_ab16c1db0bb521957833f67c690b6b8a4}{z\+\_\+norm}}
+\item 
+double \mbox{\hyperlink{classcir__glasserman_ad43d0610db68017bf054096cda60b27e}{d}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Generator$>$\newline
+class cir\+\_\+glasserman$<$ Generator $>$}
+
+An exact scheme for the C\+IR process. 
+
+This class implements an exact scheme of discretization of the C\+IR process. It exploits the knowledge of the transition law of this process. It can be found in a book of Paul Glasserman. 
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classcir__glasserman_ad43d0610db68017bf054096cda60b27e}\label{classcir__glasserman_ad43d0610db68017bf054096cda60b27e}} 
+\index{cir\+\_\+glasserman@{cir\+\_\+glasserman}!d@{d}}
+\index{d@{d}!cir\+\_\+glasserman@{cir\+\_\+glasserman}}
+\subsubsection{\texorpdfstring{d}{d}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+double \mbox{\hyperlink{classcir__glasserman}{cir\+\_\+glasserman}}$<$ Generator $>$\+::d\hspace{0.3cm}{\ttfamily [protected]}}
+
+An auxiliary variable \mbox{\Hypertarget{classcir__glasserman_aed2bd8f09e275a2fd0012989771c61f7}\label{classcir__glasserman_aed2bd8f09e275a2fd0012989771c61f7}} 
+\index{cir\+\_\+glasserman@{cir\+\_\+glasserman}!n\+\_\+poisson@{n\+\_\+poisson}}
+\index{n\+\_\+poisson@{n\+\_\+poisson}!cir\+\_\+glasserman@{cir\+\_\+glasserman}}
+\subsubsection{\texorpdfstring{n\+\_\+poisson}{n\_poisson}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+std\+::poisson\+\_\+distribution$<$int$>$ \mbox{\hyperlink{classcir__glasserman}{cir\+\_\+glasserman}}$<$ Generator $>$\+::n\+\_\+poisson\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Getters and Setters. 
+
+A Poisson random variable \mbox{\Hypertarget{classcir__glasserman_a1f91410b367839c4b81e8e89e9597848}\label{classcir__glasserman_a1f91410b367839c4b81e8e89e9597848}} 
+\index{cir\+\_\+glasserman@{cir\+\_\+glasserman}!x\+\_\+chi@{x\+\_\+chi}}
+\index{x\+\_\+chi@{x\+\_\+chi}!cir\+\_\+glasserman@{cir\+\_\+glasserman}}
+\subsubsection{\texorpdfstring{x\+\_\+chi}{x\_chi}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+std\+::chi\+\_\+squared\+\_\+distribution$<$double$>$ \mbox{\hyperlink{classcir__glasserman}{cir\+\_\+glasserman}}$<$ Generator $>$\+::x\+\_\+chi\hspace{0.3cm}{\ttfamily [protected]}}
+
+A Chi squared random variable \mbox{\Hypertarget{classcir__glasserman_ab16c1db0bb521957833f67c690b6b8a4}\label{classcir__glasserman_ab16c1db0bb521957833f67c690b6b8a4}} 
+\index{cir\+\_\+glasserman@{cir\+\_\+glasserman}!z\+\_\+norm@{z\+\_\+norm}}
+\index{z\+\_\+norm@{z\+\_\+norm}!cir\+\_\+glasserman@{cir\+\_\+glasserman}}
+\subsubsection{\texorpdfstring{z\+\_\+norm}{z\_norm}}
+{\footnotesize\ttfamily template$<$typename Generator $>$ \\
+std\+::normal\+\_\+distribution$<$double$>$ \mbox{\hyperlink{classcir__glasserman}{cir\+\_\+glasserman}}$<$ Generator $>$\+::z\+\_\+norm\hspace{0.3cm}{\ttfamily [protected]}}
+
+A standard Normal random variable 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+cir.\+h\end{DoxyCompactItemize}

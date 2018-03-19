@@ -1,6 +1,8 @@
 #pragma once
 #include "random_variable.h"
 
+/** \brief A class to simulate a normal random variable
+*/
 template<typename Generator> class normal : public random_variable<Generator>
 {
 public:
@@ -42,7 +44,8 @@ const double x_3 = std::sqrt(3);
 const double p_1 = 1. / 6.;
 const double p_2 = 5. / 6.;
 
-
+/** \brief A class to simulate a random variable with the same first five moments as a standard Gaussian
+*/
 template<typename Generator> class normal_five_moments : public random_variable<Generator>
 {
 public:
@@ -86,6 +89,8 @@ const double q_2 = 0.5;
 const double q_3 = 1. - q_1;
 
 
+/** \brief A class to simulate a random variable with the same first seven moments as a standard Gaussian
+*/
 template<typename Generator> class normal_seven_moments : public random_variable<Generator>
 {
 public:
@@ -127,6 +132,9 @@ template<typename Generator> double normal_seven_moments<Generator>::operator()(
 const double r_1 = 1./3.;
 const double r_2 = 2./3.;
 
+
+/** \brief A uniform random variable on {1,2,3}
+*/
 template<typename Generator> class zeta : public random_variable<Generator>
 {
 public:
@@ -161,6 +169,8 @@ template<typename Generator> double zeta<Generator>::operator() (Generator & gen
 };
 
 
+/** \brief A Rademacher random variable
+*/
 template<typename Generator> class rademacher : public random_variable<Generator>
 {
 public:
