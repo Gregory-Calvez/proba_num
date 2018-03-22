@@ -2,6 +2,7 @@
 #include <random>
 #include <iostream>
 #include <math.h>
+#include <chrono>
 
 #include "random_variable.h"
 #include "process.h"
@@ -56,6 +57,8 @@ public:
     double empirical_var;
     double empirical_std;
     double ci_l_bound, ci_h_bound;
+    long int elapsed_time_sec;
+    long int elapsed_time_min;
 };
 
 
@@ -89,6 +92,8 @@ template <typename Generator> monte_carlo<Generator>::monte_carlo(random_variabl
     ci_l_bound = 0.;
     ci_h_bound = 0.;
     count = 0;
+    this->elapsed_time_sec = 0;
+    this->elapsed_time_min = 0;
 };
 
 template <typename Generator> monte_carlo<Generator>::~monte_carlo(){};
@@ -127,6 +132,10 @@ template<typename Generator> std::pair<double,double> monte_carlo<Generator>::ge
 
 template<typename Generator> void monte_carlo<Generator>::compute(Generator & gen){
     /// This is the method that computes a naive MC estimator
+
+    // We use a chrono to measure the time taken to compute the estimation.
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
     double sum = 0.;
     double sum_square = 0.;
     double temp = 0.;
@@ -138,13 +147,16 @@ template<typename Generator> void monte_carlo<Generator>::compute(Generator & ge
         sum_square += std::pow(temp, 2);
         confidence = 2*1.96*std::sqrt(sum_square/count - std::pow((sum/count), 2)) / std::sqrt(count);
     } while(count < 100 || (confidence > precision && count < cap_iterations));
-    empirical_mean = sum / count;
-    empirical_var = sum_square / count - std::pow(empirical_mean, 2);
-    empirical_std = std::sqrt(empirical_var);
-    ci_l_bound = empirical_mean - 1.96 * empirical_std / std::sqrt(count);
-    ci_h_bound = empirical_mean + 1.96 * empirical_std / std::sqrt(count);
-    successful = (confidence < precision);
-    computed = true;
+    std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
+    this->empirical_mean = sum / count;
+    this->empirical_var = sum_square / count - std::pow(empirical_mean, 2);
+    this->empirical_std = std::sqrt(empirical_var);
+    this->ci_l_bound = empirical_mean - 1.96 * empirical_std / std::sqrt(count);
+    this->ci_h_bound = empirical_mean + 1.96 * empirical_std / std::sqrt(count);
+    this->successful = (confidence < precision);
+    this->computed = true;
+    this->elapsed_time_sec = std::chrono::duration_cast<std::chrono::seconds>(end - begin).count();
+    this->elapsed_time_min = std::chrono::duration_cast<std::chrono::minutes>(end - begin).count();
 };
 
 template<typename Generator> void monte_carlo<Generator>::print(){
@@ -162,6 +174,7 @@ template<typename Generator> void monte_carlo<Generator>::print(){
         std::cout << "Number of iterations" << "\t" << this->count << std::endl;
         std::cout << "Confidence interval (95\%)" << "\t (";
         std::cout << this->ci_l_bound << "\t;\t" << this->ci_h_bound << ")" << std::endl;
+        std::cout << "Time to compute this estimation: " << this->elapsed_time_min << " min " << this->elapsed_time_sec << " sec. \n" << std::endl;
     }
 };
 
@@ -172,6 +185,7 @@ template<typename Generator> void monte_carlo<Generator>::print(){
 // We will say that we have only one control variate.
 template<typename Generator> void monte_carlo<Generator>::compute_control_variate(Generator & gen)
 {
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     if (this->variable->has_control() == false){
         std::cout << "This variable has no control variate defined. " << std::endl;
         return;
@@ -213,6 +227,7 @@ template<typename Generator> void monte_carlo<Generator>::compute_control_variat
         sum_mc_square += std::pow(temp_x, 2);
         confidence = 2*1.96*std::sqrt(sum_mc_square/count - std::pow((sum_mc/count), 2)) / std::sqrt(count);
     } while(count < 100 || (confidence > precision && count < cap_iterations));
+    std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
     empirical_mean = sum_mc / count;
     empirical_var = sum_mc_square / count - std::pow(empirical_mean, 2);
     empirical_std = std::sqrt(empirical_var);
@@ -220,5 +235,7 @@ template<typename Generator> void monte_carlo<Generator>::compute_control_variat
     ci_h_bound = empirical_mean + 1.96 * empirical_std / std::sqrt(count);
     successful = (confidence < precision);
     computed = true;
+    this->elapsed_time_sec = std::chrono::duration_cast<std::chrono::seconds>(end - begin).count();
+    this->elapsed_time_min = std::chrono::duration_cast<std::chrono::minutes>(end - begin).count();
     return ;
 };
