@@ -22,7 +22,7 @@ int main(){
     auto seed = rd();
     std::mt19937_64 generator(seed);
 
-    unsigned int n = 10;
+    // unsigned int n = 10;
 
     // std::cout<<"Simulation of 10 normal distribution variables N(3, 1)"<<std::endl;
     // normal<std::mt19937_64>* variable = new normal<std::mt19937_64>(3, 1);
@@ -209,14 +209,32 @@ int main(){
     double strike = 100.;
     double maturity = 1.;
     char type = 'e';
+
     option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > * opt =
       new option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
 
-      option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > * opt_3 =
-        new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
+    // option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > * opt_3 =
+    //     new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
 
+    unsigned int cap = 1*1e5;
+    unsigned num_steps = 20;
+
+    double precision = 1e-2;
+    opt->set_num_steps(num_steps);
+    monte_carlo<std::mt19937_64> mc(opt);
+    mc.set_precision(precision);
+    mc.set_cap(cap);
+    std::cout << "Monte Carlo without control variance" << std::endl;
+    mc.compute(generator);
+    mc.print();
+    std::cout << std::endl;
+    std::cout << "Monte Carlo with control variance" <<std::endl;
+    mc.compute_control_variate(generator);
+    mc.print();
+
+/*
     std::vector<int> num_steps = {5, 10, 15, 20, 30, 50, 100};
-    int cap = 4*1e7;
+    int cap = 1*1e3;
     double precision = 1e-4;
     double exact_value = 6.144;
     std::vector<std::vector<double> > data = std::vector<std::vector<double> > ();
@@ -228,6 +246,7 @@ int main(){
       mc.set_precision(precision);
       mc.set_cap(cap);
       mc.compute(generator);
+    //   mc.compute_control_variate(generator);
       std::vector<double> temp = std::vector<double>();
       temp.push_back(mc.empirical_mean);
       temp.push_back(mc.empirical_mean - mc.ci_l_bound);
@@ -237,7 +256,10 @@ int main(){
       monte_carlo<std::mt19937_64> mc_3(opt_3);
       mc_3.set_precision(precision);
       mc_3.set_cap(cap);
+
       mc_3.compute(generator);
+    //   mc_3.compute_control_variate(generator);
+
       temp.push_back(mc_3.empirical_mean);
       temp.push_back(mc_3.empirical_mean - mc_3.ci_l_bound);
 
@@ -266,6 +288,6 @@ int main(){
     stream << exact_value << "with lines lt 3";
     stream.close();
     std::cout << "We have written the gnuplot file. " << std::endl;
-
+*/
     return 0;
 };

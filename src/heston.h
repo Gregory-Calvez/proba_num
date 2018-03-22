@@ -27,6 +27,7 @@ public:
     double log_spot_one(double t);
 
 private:
+    Cir cir;
     double x_0; /**<Initial value of price */
     double cir_0; /**<Initial value of vol of vol */
     double r; /**<Interest rate */
@@ -36,7 +37,7 @@ private:
     double rho;/**<Correlation between brownian motions */
     std::bernoulli_distribution bernoulli; /**<A Bernouilli random variable */
     std::normal_distribution<double> norm;/**<A standard normal random variable */
-    Cir cir;
+
 };
 
 
@@ -51,8 +52,8 @@ template<typename Generator, typename Cir> heston<Generator, Cir>::heston(double
     this->dimension = 4;
     this->state_0 = std::vector<double> ({cir_0, 0, x_0, 0});
     this->state = std::vector<double> ({cir_0, 0, x_0, 0});
-    norm = std::normal_distribution<double>(0, 1);
-    bernoulli = std::bernoulli_distribution(0.5);
+    this->norm = std::normal_distribution<double>(0, 1);
+    this->bernoulli = std::bernoulli_distribution(0.5);
 };
 
 template<typename Generator, typename Cir> heston<Generator, Cir>::~heston(){
@@ -103,29 +104,29 @@ template<typename Generator, typename Cir> std::vector<double> heston<Generator,
 };
 
 template<typename Generator, typename Cir> double heston<Generator, Cir>::log_spot_one(double t){
-  double x_0 = this->x_0;
-  double cir_0 = this->cir_0;
-  double a = this -> a;
-  double k = this->k;
-  double sigma = this->sigma;
-  double rho = this->rho;
+    double x_0 = this->x_0;
+    double cir_0 = this->cir_0;
+    double a = this -> a;
+    double k = this->k;
+    double sigma = this->sigma;
+    double rho = this->rho;
 
-  double sinus = std::sinh(k * t / 2.);
-  double cosinus = std::cosh(k * t / 2.);
-  double expo = std::exp(- k * t / 2.);
-  double p_prime_zero = std::pow(sigma, 2) / (2. * k) - sigma * rho;
+    double sinus = std::sinh(k * t / 2.);
+    double cosinus = std::cosh(k * t / 2.);
+    double expo = std::exp(- k * t / 2.);
+    double p_prime_zero = std::pow(sigma, 2) / (2. * k) - sigma * rho;
 
-  double result = std::log(x_0);
-  double temp = t / 2. * p_prime_zero - sigma * rho / k - p_prime_zero / k;
+    double result = std::log(x_0);
+    double temp = t / 2. * p_prime_zero - sigma * rho / k - p_prime_zero / k;
 
-  temp *= sinus;
-  temp += t / 2. * p_prime_zero * cosinus;
-  temp *= - expo;
-  temp += - sigma * rho * t / 2.;
-  temp *= 2 * a / std::pow(sigma, 2);
+    temp *= sinus;
+    temp += t / 2. * p_prime_zero * cosinus;
+    temp *= - expo;
+    temp += - sigma * rho * t / 2.;
+    temp *= 2 * a / std::pow(sigma, 2);
 
-  result += temp;
-  result += -cir_0 * expo * sinus / k;
+    result += temp;
+    result += -cir_0 * expo * sinus / k;
 
-  return result;
+    return result;
 };

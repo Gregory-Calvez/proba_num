@@ -41,6 +41,8 @@ public:
     double simulate(Generator & gen);
     /// Computations of a naive Monte Carlo estimator
     void compute (Generator & gen);
+    /// Computations of a Monte Carlo with control variate
+    void compute_control_variate (Generator & gen);
     /// Printing the results
     void print();
 public:
@@ -161,4 +163,62 @@ template<typename Generator> void monte_carlo<Generator>::print(){
         std::cout << "Confidence interval (95\%)" << "\t (";
         std::cout << this->ci_l_bound << "\t;\t" << this->ci_h_bound << ")" << std::endl;
     }
+};
+
+
+// To simplify things, we will say that a random variable can now return a pair with
+// as first value the reaslisation of the RV and as second value the value of
+// the control variate.
+// We will say that we have only one control variate.
+template<typename Generator> void monte_carlo<Generator>::compute_control_variate(Generator & gen)
+{
+    if (this->variable->has_control() == false){
+        std::cout << "This variable has no control variate defined. " << std::endl;
+        return;
+    };
+
+    // First, compute the control constant
+    double mean_control_variate = this->variable->get_mean_control_variate();
+    unsigned int num_iterations_to_compute_constant = std::floor(this->cap_iterations / 10);
+
+    double sum_variable = 0;
+    double sum_control = 0;
+    double sum_covariance = 0;
+    double sum_order_2_control = 0;
+    std::pair<double, double> temp;
+    for(unsigned int i = 0; i<num_iterations_to_compute_constant; ++i){
+        temp = this->variable->simulate(gen);
+        sum_variable += temp.first;
+        sum_control += temp.second;
+        sum_covariance += temp.first*temp.second;
+        sum_order_2_control += std::pow(temp.second, 2);
+    };
+    double covariance = (sum_covariance / num_iterations_to_compute_constant) - mean_control_variate * (sum_variable / num_iterations_to_compute_constant);
+    double variance_control = (sum_order_2_control / num_iterations_to_compute_constant) - std::pow(mean_control_variate, 2);
+
+    double c = - covariance / variance_control;
+
+
+    // Then, we do the monte carlo
+    double sum_mc = 0.;
+    double sum_mc_square = 0.;
+    double confidence = 0.;
+    double temp_x = 0;
+    unsigned int count = 0;
+    do{
+        ++count;
+        temp = this->variable->simulate(gen);
+        temp_x = temp.first + c * (temp.second - mean_control_variate);
+        sum_mc += temp_x;
+        sum_mc_square += std::pow(temp_x, 2);
+        confidence = 2*1.96*std::sqrt(sum_mc_square/count - std::pow((sum_mc/count), 2)) / std::sqrt(count);
+    } while(count < 100 || (confidence > precision && count < cap_iterations));
+    empirical_mean = sum_mc / count;
+    empirical_var = sum_mc_square / count - std::pow(empirical_mean, 2);
+    empirical_std = std::sqrt(empirical_var);
+    ci_l_bound = empirical_mean - 1.96 * empirical_std / std::sqrt(count);
+    ci_h_bound = empirical_mean + 1.96 * empirical_std / std::sqrt(count);
+    successful = (confidence < precision);
+    computed = true;
+    return ;
 };

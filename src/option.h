@@ -18,10 +18,10 @@ public:
   option(double maturity, double strike, double cir_0, double x_0,
     double a, double k, double sigma, double rho, double r, char type);
 
-  ///Computes the payoff of the option
-  double payoff(std::vector<std::vector<double>> trajectory);
+  ///Computes the payoff of the option given the trajectory of a Heston
+  double payoff(std::vector<std::vector<double> > trajectory);
   ///Function to test log_spot_one
-  double test_log_spot_one(std::vector<std::vector<double>> trajectory);
+  double test_log_spot_one(std::vector<std::vector<double> > trajectory);
   double operator()(Generator & gen);
   ///Setter
   void set_num_steps(unsigned int n);
@@ -29,8 +29,14 @@ public:
   double theoretical_log_spot_one();
 
 
+  std::pair<double, double> simulate(Generator & gen);
+  double get_mean_control_variate();
+
+
 private:
-  //Option parameters
+
+    Heston heston;
+    //Option parameters
   double maturity; /**<Expiry of the option */
   double strike;/**<Strike of the option */
   char type; /**<Type of the option : 'e' for European and 'a' for Asian */
@@ -41,7 +47,8 @@ private:
   double k; /**<Heston parameter*/
   double sigma; /**<Heston parameter*/
   double rho; /**<Heston parameter*/
-  Heston heston;
+
+
 };
 
 template<typename Generator, typename Heston> option<Generator, Heston>::~option()
@@ -56,11 +63,13 @@ template<typename Generator, typename Heston> option<Generator, Heston>::option(
   double a, double k, double sigma, double rho, double r, char type) : random_variable<Generator>(), heston(cir_0, x_0, a, k, sigma, rho, r), maturity(maturity),
   strike(strike), type(type), r(r), a(a), k(k), sigma(sigma), rho(rho)
 {
+    this->has_control_variate = true;
+    this->control_variate_mean = this->theoretical_log_spot_one();
 };
 
 template<typename Generator, typename Heston> void option<Generator, Heston>::set_num_steps(unsigned int n)
 {
-  (this->heston).set_num_steps(n);
+    (this->heston).set_num_steps(n);
 };
 
 template<typename Generator, typename Heston> double option<Generator, Heston>::payoff(std::vector<std::vector<double>> trajectory){
@@ -91,7 +100,7 @@ template<typename Generator, typename Heston> double option<Generator, Heston>::
   return result;
 };
 
-//Real version
+// Real version
 template<typename Generator, typename Heston> double option<Generator, Heston>::operator()(Generator & gen){
   std::vector<std::vector<double>> trajectory = (this->heston)(gen);
   this->realised = true;
@@ -107,8 +116,8 @@ template<typename Generator, typename Heston> double option<Generator, Heston>::
 //   return this->realisation;
 // };
 
-template<typename Generator, typename Heston> double option<Generator, Heston>::test_log_spot_one(std::vector<std::vector<double>> trajectory){
-  double result;
+template<typename Generator, typename Heston> double option<Generator, Heston>::test_log_spot_one(std::vector<std::vector<double> > trajectory){
+  double result = 0;
   double r = this->r;
   double T = this->maturity;
   int num_steps = (this->heston).get_num_steps();
@@ -122,4 +131,13 @@ template<typename Generator, typename Heston> double option<Generator, Heston>::
   double T = this->maturity;
   double theo = (this->heston).log_spot_one(T);
   return theo;
+};
+
+template<typename Generator, typename Heston> std::pair<double, double> option<Generator, Heston>::simulate(Generator & gen){
+    std::vector<std::vector<double> > trajectory = (this->heston)(gen);
+    this->realisation = this->payoff(trajectory);
+    this->control_variate_realisation = this->test_log_spot_one(trajectory);
+    this->realised = true;
+
+    return std::pair<double, double> (this->realisation, this->control_variate_realisation);
 };
