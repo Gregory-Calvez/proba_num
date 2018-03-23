@@ -154,9 +154,9 @@ template<typename Generator> cir_o2<Generator>::~cir_o2(){
 };
 
 template<typename Generator> std::vector<double> cir_o2<Generator>::next_step(Generator & gen, std::vector<double> state, double t) {
-    double k_2 = k_2_f(t, this->sigma, this->a, this->k);
     double x = state.at(0);
     double tt = this->time_step;
+    double k_2 = k_2_f(tt, this->sigma, this->a, this->k);
     if( x >= k_2){
         double normal_test = (this->y)(gen);
         double w = std::sqrt(tt) * normal_test;

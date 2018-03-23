@@ -5,6 +5,7 @@
 #include <math.h>
 #include <random>
 
+
 #include "normal.h"
 #include "random_variable.h"
 #include "monte_carlo.h"
@@ -14,14 +15,22 @@
 #include "heston.h"
 #include "integral_brownian.h"
 #include "option.h"
+#include "sobol_generator.h"
 
 
 int main(){
+
+
     // Initialize the random numbers Generator
     std::random_device rd;
     auto seed = rd();
     std::mt19937_64 generator(seed);
 
+    sobol_generator sobol = sobol_generator();
+    // std::uniform_real_distribution<double> u = std::uniform_real_distribution<double> (0., 1.);
+    // for (int i = 0; i<10; ++i){
+    //     std::cout << u(generator) << std::endl;
+    // }
     // unsigned int n = 10;
 
     // std::cout<<"Simulation of 10 normal distribution variables N(3, 1)"<<std::endl;
@@ -210,27 +219,47 @@ int main(){
     double maturity = 1.;
     char type = 'e';
 
-    option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > * opt =
-      new option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
+    option<sobol_generator, heston<sobol_generator, cir_o2<sobol_generator> > > * opt =
+      new option<sobol_generator, heston<sobol_generator, cir_o2<sobol_generator> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
 
-    // option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > * opt_3 =
-    //     new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
+    // // option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > * opt_3 =
+    // //     new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
 
-    unsigned int cap = 1*1e5;
-    unsigned num_steps = 20;
+    unsigned int cap = 3*1e5;
+    unsigned num_steps = 100;
+    double precision = 1e-5;
+    
+    // opt->set_num_steps(num_steps);
+    // monte_carlo<sobol_generator> mc(opt);
+    // mc.set_precision(precision);
+    // mc.set_cap(cap);
+    // std::cout << "Monte Carlo without control variance on CIR_O2 Heston Asian" << std::endl;
+    // mc.compute(sobol);
+    // mc.print();
 
-    double precision = 1e-2;
-    opt->set_num_steps(num_steps);
-    monte_carlo<std::mt19937_64> mc(opt);
-    mc.set_precision(precision);
-    mc.set_cap(cap);
-    std::cout << "Monte Carlo without control variance" << std::endl;
-    mc.compute(generator);
-    mc.print();
-    std::cout << std::endl;
-    std::cout << "Monte Carlo with control variance" <<std::endl;
-    mc.compute_control_variate(generator);
-    mc.print();
+
+    normal<sobol_generator>* norm_sobol = new normal<sobol_generator>(3, 5);
+    monte_carlo<sobol_generator> mc_norm(norm_sobol);
+    mc_norm.set_precision(precision);
+    mc_norm.set_cap(cap);
+    std::cout << "Monte Carlo without control variance on N(3, 5)" << std::endl;
+    mc_norm.compute(sobol);
+    mc_norm.print();
+
+
+    normal_five_moments<sobol_generator>* norm_5 = new normal_five_moments<sobol_generator>();
+    monte_carlo<sobol_generator> mc_5(norm_5);
+    mc_5.set_precision(precision);
+    mc_5.set_cap(cap);
+    std::cout << "Monte Carlo without control variance on Normal five moments / Should work" << std::endl;
+    mc_5.compute(sobol);
+    mc_5.print();
+
+
+    // std::cout << std::endl;
+    // std::cout << "Monte Carlo with control variance" <<std::endl;
+    // mc.compute_control_variate(generator);
+    // mc.print();
 
 /*
     std::vector<int> num_steps = {5, 10, 15, 20, 30, 50, 100};
