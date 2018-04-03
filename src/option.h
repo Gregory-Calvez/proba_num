@@ -72,7 +72,7 @@ template<typename Generator, typename Heston> void option<Generator, Heston>::se
     (this->heston).set_num_steps(n);
 };
 
-template<typename Generator, typename Heston> double option<Generator, Heston>::payoff(std::vector<std::vector<double>> trajectory){
+template<typename Generator, typename Heston> double option<Generator, Heston>::payoff(std::vector<std::vector<double> > trajectory){
   int indice = 0;
   if (type == 'e'){
     indice = 2;

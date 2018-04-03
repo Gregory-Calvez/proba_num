@@ -1,0 +1,88 @@
+Glasserman: 
+
+Euro
+Test of Monte-Carlo on an European option
+Without control variate
+Values computed, here are the results: 
+Precision not reached
+Empirical mean	6.13801
+Empirical variance	129.395
+Number of iterations	100000
+Confidence interval (95%)	 (6.06751	;	6.20852)
+Time to compute this estimation: 1 min 32 sec. 
+
+
+Values computed, here are the results: 
+With control variate
+Precision not reached
+Empirical mean	6.15837
+Empirical variance	20.5412
+Number of iterations	100000
+Confidence interval (95%)	 (6.13028	;	6.18646)
+Time to compute this estimation: 1 min 44 sec. 
+
+
+Asian 
+
+Without control variates
+Values computed, here are the results: 
+Precision not reached
+Empirical mean	3.82087
+Empirical variance	44.9999
+Number of iterations	100000
+Confidence interval (95%)	 (3.77929	;	3.86245)
+Time to compute this estimation: 1 min 33 sec. 
+
+
+With control variatesValues computed, here are the results: 
+Precision not reached
+Empirical mean	3.82837
+Empirical variance	16.0981
+Number of iterations	100000
+Confidence interval (95%)	 (3.80351	;	3.85324)
+Time to compute this estimation: 2 min 24 sec. 
+
+
+
+O2 Euro
+Test of Monte-Carlo on an European option
+Without control variates
+Values computed, here are the results: 
+Precision not reached
+Empirical mean	6.16535
+Empirical variance	130.925
+Number of iterations	100000
+Confidence interval (95%)	 (6.09443	;	6.23627)
+Time to compute this estimation: 1 min 10 sec. 
+
+
+With control variatesValues computed, here are the results: 
+Precision not reached
+Empirical mean	6.14097
+Empirical variance	23.2578
+Number of iterations	100000
+Confidence interval (95%)	 (6.11108	;	6.17086)
+Time to compute this estimation: 1 min 19 sec. 
+
+O3 Euro
+Test of Monte-Carlo on an European option
+Without control variates
+Values computed, here are the results: 
+Precision not reached
+Empirical mean	6.15926
+Empirical variance	129.827
+Number of iterations	100000
+Confidence interval (95%)	 (6.08864	;	6.22988)
+Time to compute this estimation: 1 min 21 sec. 
+
+
+With control variates
+Values computed, here are the results: 
+Precision not reached
+Empirical mean	6.14858
+Empirical variance	20.5723
+Number of iterations	100000
+Confidence interval (95%)	 (6.12047	;	6.1767)
+Time to compute this estimation: 1 min 31 sec. 
+
+

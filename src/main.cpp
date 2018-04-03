@@ -59,71 +59,83 @@ void plot_heston_glasserman(double cir_0, double x_0, double a, double k, double
     h.write_to_plot(generator, 10, coordinate);
 };
 
+void compare_reduction_variance_glasserman(double cir_0, double x_0, double a, double k, double sigma, double rho, double r, double strike, double expiry, unsigned int num_steps, char type, unsigned int cap){
+    // Initialize generator, random seed
+    std::random_device rd;
+    auto seed = rd();
+    std::mt19937_64 generator(seed);
+    // Initialize the option
+    option<std::mt19937_64, heston<std::mt19937_64, cir_glasserman<std::mt19937_64> > > * opt = new option<std::mt19937_64, heston<std::mt19937_64, cir_glasserman<std::mt19937_64> > > (expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type);
+    monte_carlo<std::mt19937_64> mc(opt);
+    mc.set_precision(0.01);
+    mc.set_cap(cap);
+    // Run without control variates
+    std::cout << "Without control variates" << std::endl;
+    mc.compute(generator);
+    mc.print();
+    std::cout << std::endl << "With control variates";
+    // Run with control variates
+
+    mc.compute_control_variate(generator);
+    mc.print();
+    std::cout << std::endl;
+};
+
+void compare_reduction_variance_o2(double cir_0, double x_0, double a, double k, double sigma, double rho, double r, double strike, double expiry, unsigned int num_steps, char type, unsigned int cap){
+    // Initialize generator, random seed
+    std::random_device rd;
+    auto seed = rd();
+    std::mt19937_64 generator(seed);
+    // Initialize the option
+    option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > * opt = new option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > (expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type);
+    if (type == 'e'){
+        std::cout << "Test of Monte-Carlo on an European option" << std::endl;
+    } else {
+        std::cout << "Test of Monte-Carlo on an Asian option" << std::endl;
+    }
+    monte_carlo<std::mt19937_64> mc(opt);
+    mc.set_precision(0.01);
+    mc.set_cap(cap);
+    // Run without control variates
+    std::cout << "Without control variates" << std::endl;
+    mc.compute(generator);
+    mc.print();
+    std::cout << std::endl << "With control variates";
+    // Run with control variates
+
+    mc.compute_control_variate(generator);
+    mc.print();
+    std::cout << std::endl;
+};
+
+void compare_reduction_variance_o3(double cir_0, double x_0, double a, double k, double sigma, double rho, double r, double strike, double expiry, unsigned int num_steps, char type, unsigned int cap){
+    // Initialize generator, random seed
+    std::random_device rd;
+    auto seed = rd();
+    std::mt19937_64 generator(seed);
+    // Initialize the option
+    option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > * opt = new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type);
+    if (type == 'e'){
+        std::cout << "Test of Monte-Carlo on an European option" << std::endl;
+    } else {
+        std::cout << "Test of Monte-Carlo on an Asian option" << std::endl;
+    }
+    monte_carlo<std::mt19937_64> mc(opt);
+    mc.set_precision(0.01);
+    mc.set_cap(cap);
+    // Run without control variates
+    std::cout << "Without control variates" << std::endl;
+    mc.compute(generator);
+    mc.print();
+    std::cout << std::endl << "With control variates" << std::endl;
+    // Run with control variates
+    mc.compute_control_variate(generator);
+    mc.print();
+    std::cout << std::endl;
+};
 
 
 int main(){
-
-
-    // Initialize the random numbers Generator
-    // std::random_device rd;
-    // auto seed = rd();
-    // std::mt19937_64 generator(seed);
-    //
-    // sobol_generator sobol = sobol_generator();
-    // std::uniform_real_distribution<double> u = std::uniform_real_distribution<double> (0., 1.);
-    // for (int i = 0; i<100; ++i){
-    //     std::cout << u(sobol) << std::endl;
-    // }
-    // return 0;
-    // unsigned int n = 10;
-
-    // std::cout<<"Simulation of 10 normal distribution variables N(3, 1)"<<std::endl;
-    // normal<std::mt19937_64>* variable = new normal<std::mt19937_64>(3, 1);
-    // for(unsigned int i = 0; i<n; ++i){
-    //     std::cout << (*variable)(generator) << std::endl;
-    // };
-    // std::cout << std::endl;
-    //
-    // std::cout << "Test of monte carlo on the gaussian N(3, 1), precision = 0.1" << std::endl;
-    // monte_carlo<std::mt19937_64> mc(variable);
-    // mc.set_precision(0.1);
-    // mc.compute(generator);
-    // mc.print();
-    // std::cout << std::endl;
-    //
-    // std::cout << "Test of monte carlo and process on the integral of a brownian motion b/w 0 and 1."<< std::endl;
-    // integral_brownian<std::mt19937_64>* ib = new integral_brownian<std::mt19937_64>(1000);
-    // monte_carlo<std::mt19937_64> mc_2(ib);
-    // mc_2.set_precision(0.1);
-    // mc_2.compute(generator);
-    // mc_2.print();
-    //
-    // std::cout << "Simulation of 10 variable normal_five_moments" << std::endl;
-    // normal_seven_moments<std::mt19937_64> variable_5 = normal_seven_moments<std::mt19937_64>();
-    // for(unsigned int i = 0; i<n; ++i){
-    //     std::cout << variable_5(generator) << std::endl;
-    // };
-    // std::cout << std::endl;
-
-
-    /// Plot CIR
-    // double state_0 = 2;
-    // double k = 1;
-    // double a = 1;
-    // double s = 1;
-    // cir_o2<std::mt19937_64> c = cir_o2<std::mt19937_64>(state_0, k, a, s);
-    // // cir_glasserman<std::mt19937_64> c = cir_glasserman<std::mt19937_64>(state_0, k, a, s);
-    // c.set_time_end(1);
-    // c.set_num_steps(10000);
-    // c.write_to_plot(generator, 10, 0);
-    // c.print_trajectory(0);
-
-    // /// Plot brownian
-
-    // brownian<std::mt19937_64> b = brownian<std::mt19937_64>();
-    // b.set_num_steps(1000);
-    // b.write_to_plot(generator, 20, 0);
-
     /// Try heston with Glasserman
     // double k = 0.5;
     // double a = 0.02;
@@ -363,9 +375,9 @@ int main(){
     double rho = -0.5;
     double r = 0.02;
     double strike = 100.;
-    double maturity = 1.;
-    unsigned int num_steps = 200;
-    char type = 'e';
+    double expiry = 1.;
+    unsigned int num_steps = 20;
+    unsigned int cap = 100000;
 
     /// Plotting som examples of trajectories.
     /// The last parameter is the coordinate : 0 = CIR, 2 = Heston
@@ -373,5 +385,15 @@ int main(){
     // plot_heston_o2(cir_0, x_0, a, k, sigma, rho, r, num_steps, 0);
     // plot_heston_o3(cir_0, x_0, a, k, sigma, rho, r, num_steps, 2);
 
+
+    /// Testing the control variates
+    // compare_reduction_variance_glasserman(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'e', cap);
+    // compare_reduction_variance_glasserman(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'a', cap);
+
+    // compare_reduction_variance_o2(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'e', cap);
+    // compare_reduction_variance_o3(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'e', cap);
+
+
+    
     return 0;
 };

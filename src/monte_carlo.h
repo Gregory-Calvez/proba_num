@@ -155,8 +155,8 @@ template<typename Generator> void monte_carlo<Generator>::compute(Generator & ge
     this->ci_h_bound = empirical_mean + 1.96 * empirical_std / std::sqrt(count);
     this->successful = (confidence < precision);
     this->computed = true;
-    this->elapsed_time_sec = std::chrono::duration_cast<std::chrono::seconds>(end - begin).count();
     this->elapsed_time_min = std::chrono::duration_cast<std::chrono::minutes>(end - begin).count();
+    this->elapsed_time_sec = std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() - this->elapsed_time_min * 60;
 };
 
 template<typename Generator> void monte_carlo<Generator>::print(){
@@ -235,7 +235,7 @@ template<typename Generator> void monte_carlo<Generator>::compute_control_variat
     ci_h_bound = empirical_mean + 1.96 * empirical_std / std::sqrt(count);
     successful = (confidence < precision);
     computed = true;
-    this->elapsed_time_sec = std::chrono::duration_cast<std::chrono::seconds>(end - begin).count();
     this->elapsed_time_min = std::chrono::duration_cast<std::chrono::minutes>(end - begin).count();
+    this->elapsed_time_sec = std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() - this->elapsed_time_min * 60;
     return ;
 };
