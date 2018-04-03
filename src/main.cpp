@@ -134,6 +134,48 @@ void compare_reduction_variance_o3(double cir_0, double x_0, double a, double k,
     std::cout << std::endl;
 };
 
+void test_for_cuda(){
+    double k = 0.5;
+    double a = 0.02;
+    double sigma = 0.4;
+    double x_0 = 100.;
+    double cir_0 = .04;
+    double rho = -0.5;
+    double r = 0.02;
+    double strike = 100.;
+    double expiry = 1.;
+    unsigned int num_steps = 100;
+    unsigned int cap = 2621440;
+
+    // Initialize generator, random seed
+    std::random_device rd;
+    auto seed = rd();
+    std::mt19937_64 generator(seed);
+    // Initialize the option
+    option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > * opt = new option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > (expiry, strike, cir_0, x_0, a, k , sigma, rho, r, 'e');
+    monte_carlo<std::mt19937_64> mc(opt);
+    mc.set_precision(0.0001); // To make sure that we hit the cap for the number of iteration to compare with the other implementations.
+    mc.set_cap(cap);
+    mc.compute(generator);
+    mc.print();
+};
+
+void test_mc_sobol(double cir_0, double x_0, double a, double k, double sigma, double rho, double r, double strike, double expiry, unsigned int num_steps, unsigned int cap){
+    // Initialize generator, random seed
+    sobol_generator sobol = sobol_generator();
+    // Construct Heston
+    option<sobol_generator, heston<sobol_generator, cir_o2<sobol_generator> > > * opt = new option<sobol_generator, heston<sobol_generator, cir_o2<sobol_generator> > > (expiry, strike, cir_0, x_0, a, k , sigma, rho, r, 'e');
+    heston<std::mt19937_64, cir_o2<std::mt19937_64> > h = heston<std::mt19937_64, cir_o2<std::mt19937_64> > (cir_0, x_0, a, k , sigma, rho, r);
+    h.set_num_steps(num_steps);
+    opt->set_num_steps(num_steps);
+    monte_carlo<sobol_generator> mc(opt);
+    mc.set_precision(0.0001);
+    mc.set_cap(cap);
+    std::cout << "Sobol Monte Carlo on CIR_O2 Heston Asian" << std::endl;
+    mc.compute(sobol);
+    mc.print();
+};
+
 
 int main(){
     /// Try heston with Glasserman
@@ -376,7 +418,7 @@ int main(){
     double r = 0.02;
     double strike = 100.;
     double expiry = 1.;
-    unsigned int num_steps = 20;
+    unsigned int num_steps = 100;
     unsigned int cap = 100000;
 
     /// Plotting som examples of trajectories.
@@ -393,7 +435,11 @@ int main(){
     // compare_reduction_variance_o2(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'e', cap);
     // compare_reduction_variance_o3(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'e', cap);
 
+    /// One shot to compare with cuda code
+    // test_for_cuda();
 
-    
+    /// Test for Sobol
+    // test_mc_sobol(cir_0, x_0, a, k, sigma, rho, r, strike,  expiry, num_steps, cap);
+
     return 0;
 };

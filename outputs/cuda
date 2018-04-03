@@ -1,0 +1,28 @@
+CUDA 
+
+We have computed a MC Call price of : 6.133774
+Empirical variance : 129.929108
+Number of simulations: 2621440
+Confidence interval : (6.119976 , 6.147573)
+Time elapsed: 3623 ms
+
+EFFICIENT CPP
+
+We have computed a MC Call price of : 6.142951
+Empirical variance : 129.975800
+Number of simulations: 2621440
+Confidence interval : (6.129150 , 6.156752)
+Time elapsed: 261853 ms
+(72xCUDA)
+
+MAIN CODE
+
+Values computed, here are the results: 
+Precision not reached
+Empirical mean	6.14381
+Empirical variance	130.199
+Number of iterations	2621440
+Confidence interval (95%)	 (6.13	;	6.15763)
+Time to compute this estimation: 31 min 45 sec. 
+(about 530xCUDA, 7.3xEFFICIENTCPP)
+

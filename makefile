@@ -21,3 +21,11 @@ run : p1.out
 
 plot: run
 	gnuplot --persist gnu
+
+cuda:
+	nvcc -arch=sm_20 --output-file cuda/cuda.out cuda/option_euro_o2.cu
+	cuda/cuda.out
+
+efficientcpp:
+	g++ -std=c++11 -o cuda/efficient_cpp.out cuda/option_euro_o2.cpp
+	cuda/efficient_cpp.out
