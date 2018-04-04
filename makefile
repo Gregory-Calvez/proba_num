@@ -23,8 +23,9 @@ plot: run
 	gnuplot --persist gnu
 
 cuda:
-	nvcc -arch=sm_20 --output-file cuda/cuda.out cuda/option_euro_o2.cu
-	cuda/cuda.out
+	nvcc -arch=sm_20 --output-file cuda/cuda_kernels.out cuda/cuda_kernels.cu
+	cuda/cuda_kernels.out
+	gnuplot --persist cuda/gnu
 
 efficientcpp:
 	g++ -std=c++11 -o cuda/efficient_cpp.out cuda/option_euro_o2.cpp

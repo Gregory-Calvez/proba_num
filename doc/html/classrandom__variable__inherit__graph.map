@@ -1,0 +1,9 @@
+<map id="random_variable&lt; Generator &gt;" name="random_variable&lt; Generator &gt;">
+<area shape="rect" id="node2" href="$classintegral__brownian.html" title="A class to simulate the integral of a Brownian Motion with a classical Euler scheme. " alt="" coords="272,5,403,47"/>
+<area shape="rect" id="node3" href="$classnormal.html" title="A class to simulate a normal random variable. " alt="" coords="266,71,409,98"/>
+<area shape="rect" id="node4" href="$classnormal__five__moments.html" title="A class to simulate a random variable with the same first five moments as a standard Gaussian..." alt="" coords="262,123,413,164"/>
+<area shape="rect" id="node5" href="$classnormal__seven__moments.html" title="A class to simulate a random variable with the same first seven moments as a standard Gaussian..." alt="" coords="255,188,419,229"/>
+<area shape="rect" id="node6" href="$classoption.html" title="A class to code an option. " alt="" coords="268,254,407,281"/>
+<area shape="rect" id="node7" href="$classrademacher.html" title="A Rademacher random variable. " alt="" coords="252,305,423,331"/>
+<area shape="rect" id="node8" href="$classzeta.html" title="A uniform random variable on {1,2,3}. " alt="" coords="273,355,401,382"/>
+</map>

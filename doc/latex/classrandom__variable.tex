@@ -1,0 +1,73 @@
+\hypertarget{classrandom__variable}{}\section{random\+\_\+variable$<$ Generator $>$ Class Template Reference}
+\label{classrandom__variable}\index{random\+\_\+variable$<$ Generator $>$@{random\+\_\+variable$<$ Generator $>$}}
+
+
+A general class to implement a random variable.  
+
+
+
+
+{\ttfamily \#include $<$random\+\_\+variable.\+h$>$}
+
+
+
+Inheritance diagram for random\+\_\+variable$<$ Generator $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classrandom__variable__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classrandom__variable_a6dbf2b284fff6629a1bf61ed5f63b1db}{random\+\_\+variable} ()\hypertarget{classrandom__variable_a6dbf2b284fff6629a1bf61ed5f63b1db}{}\label{classrandom__variable_a6dbf2b284fff6629a1bf61ed5f63b1db}
+
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classrandom__variable_ae9066f6c557c9b64233f087bd2dfb6b1}{$\sim$random\+\_\+variable} ()\hypertarget{classrandom__variable_ae9066f6c557c9b64233f087bd2dfb6b1}{}\label{classrandom__variable_ae9066f6c557c9b64233f087bd2dfb6b1}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{classrandom__variable_aa3b0e1dfeb750216df2043e96f72c017}{print} ()\hypertarget{classrandom__variable_aa3b0e1dfeb750216df2043e96f72c017}{}\label{classrandom__variable_aa3b0e1dfeb750216df2043e96f72c017}
+
+\begin{DoxyCompactList}\small\item\em Printing. \end{DoxyCompactList}\item 
+virtual double \hyperlink{classrandom__variable_a661cc29297837ef5aba0b7e476f114b2}{operator()} (Generator \&gen)=0\hypertarget{classrandom__variable_a661cc29297837ef5aba0b7e476f114b2}{}\label{classrandom__variable_a661cc29297837ef5aba0b7e476f114b2}
+
+\begin{DoxyCompactList}\small\item\em Virtual function. \end{DoxyCompactList}\item 
+virtual std\+::pair$<$ double, double $>$ {\bfseries simulate} (Generator \&gen)\hypertarget{classrandom__variable_adc681ee20a16d59d75288c4faa969a50}{}\label{classrandom__variable_adc681ee20a16d59d75288c4faa969a50}
+
+\item 
+double {\bfseries get\+\_\+mean\+\_\+control\+\_\+variate} ()\hypertarget{classrandom__variable_a1ece3619941def5190b80fd0153e4ef6}{}\label{classrandom__variable_a1ece3619941def5190b80fd0153e4ef6}
+
+\item 
+bool {\bfseries has\+\_\+control} ()\hypertarget{classrandom__variable_afae88ea0382990482784b3e16bbb6013}{}\label{classrandom__variable_afae88ea0382990482784b3e16bbb6013}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries realised}\hypertarget{classrandom__variable_a94420df0549a9276fa277e55cd9f8a5c}{}\label{classrandom__variable_a94420df0549a9276fa277e55cd9f8a5c}
+
+\item 
+double {\bfseries realisation}\hypertarget{classrandom__variable_a5b1d23131a974247dad648dd36c90732}{}\label{classrandom__variable_a5b1d23131a974247dad648dd36c90732}
+
+\item 
+bool {\bfseries has\+\_\+control\+\_\+variate}\hypertarget{classrandom__variable_a0ef52eaf585e41eba031152727eddffa}{}\label{classrandom__variable_a0ef52eaf585e41eba031152727eddffa}
+
+\item 
+double {\bfseries control\+\_\+variate\+\_\+realisation}\hypertarget{classrandom__variable_afdb60c3268e929b2878fb71576e9544e}{}\label{classrandom__variable_afdb60c3268e929b2878fb71576e9544e}
+
+\item 
+double {\bfseries control\+\_\+variate\+\_\+mean}\hypertarget{classrandom__variable_abeb7535675f902615adda823bb6786cd}{}\label{classrandom__variable_abeb7535675f902615adda823bb6786cd}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Generator$>$\\*
+class random\+\_\+variable$<$ Generator $>$}
+
+A general class to implement a random variable. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/gregory/\+Desktop/\+Cours\+\_\+\+E\+K/\+P2/\+Pages\+\_\+projet/test\+\_\+git/proba\+\_\+num/src/random\+\_\+variable.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,165 @@
+\hypertarget{classprocess}{}\section{process$<$ Generator $>$ Class Template Reference}
+\label{classprocess}\index{process$<$ Generator $>$@{process$<$ Generator $>$}}
+
+
+A general class to code the discretization of a stochastic process on the time interval \mbox{[}0,T\mbox{]}.  
+
+
+
+
+{\ttfamily \#include $<$process.\+h$>$}
+
+
+
+Inheritance diagram for process$<$ Generator $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classprocess__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classprocess_a59faea64773f0619162d80135c334c80}{process} ()\hypertarget{classprocess_a59faea64773f0619162d80135c334c80}{}\label{classprocess_a59faea64773f0619162d80135c334c80}
+
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classprocess_af5f38b7ec02665033d47936fec5c498d}{$\sim$process} ()\hypertarget{classprocess_af5f38b7ec02665033d47936fec5c498d}{}\label{classprocess_af5f38b7ec02665033d47936fec5c498d}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{classprocess_aaf36acd58fc1d875a6b1ad9e3000c9f9}{set\+\_\+time\+\_\+end} (double t)\hypertarget{classprocess_aaf36acd58fc1d875a6b1ad9e3000c9f9}{}\label{classprocess_aaf36acd58fc1d875a6b1ad9e3000c9f9}
+
+\begin{DoxyCompactList}\small\item\em Setter. \end{DoxyCompactList}\item 
+void \hyperlink{classprocess_a479e9c720b3fb9a9e900a1dc6e85b7b8}{set\+\_\+num\+\_\+steps} (unsigned int n)\hypertarget{classprocess_a479e9c720b3fb9a9e900a1dc6e85b7b8}{}\label{classprocess_a479e9c720b3fb9a9e900a1dc6e85b7b8}
+
+\begin{DoxyCompactList}\small\item\em Setter. \end{DoxyCompactList}\item 
+void \hyperlink{classprocess_a1c1550dc3afc293860934496a3239a62}{set\+\_\+state\+\_\+0} (std\+::vector$<$ double $>$ s)\hypertarget{classprocess_a1c1550dc3afc293860934496a3239a62}{}\label{classprocess_a1c1550dc3afc293860934496a3239a62}
+
+\begin{DoxyCompactList}\small\item\em Setter. \end{DoxyCompactList}\item 
+void \hyperlink{classprocess_af548473ced7827cf2f100a2c74cdaf76}{set\+\_\+time\+\_\+grid} ()\hypertarget{classprocess_af548473ced7827cf2f100a2c74cdaf76}{}\label{classprocess_af548473ced7827cf2f100a2c74cdaf76}
+
+\begin{DoxyCompactList}\small\item\em Setter. \end{DoxyCompactList}\item 
+void \hyperlink{classprocess_a149855679fd1188aee51401c07ad35f7}{set\+\_\+state} (std\+::vector$<$ double $>$ s)\hypertarget{classprocess_a149855679fd1188aee51401c07ad35f7}{}\label{classprocess_a149855679fd1188aee51401c07ad35f7}
+
+\begin{DoxyCompactList}\small\item\em Setter. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classprocess_ac469abbf135402311103bf3ca1900748}{get\+\_\+num\+\_\+steps} ()\hypertarget{classprocess_ac469abbf135402311103bf3ca1900748}{}\label{classprocess_ac469abbf135402311103bf3ca1900748}
+
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \hyperlink{classprocess_aef5d6a76efc3aa712f8cd41bf9438cba}{get\+\_\+state\+\_\+0} ()\hypertarget{classprocess_aef5d6a76efc3aa712f8cd41bf9438cba}{}\label{classprocess_aef5d6a76efc3aa712f8cd41bf9438cba}
+
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+double \hyperlink{classprocess_a047f0d44f3ec8ddd8d5edfcc09192615}{get\+\_\+time\+\_\+end} ()\hypertarget{classprocess_a047f0d44f3ec8ddd8d5edfcc09192615}{}\label{classprocess_a047f0d44f3ec8ddd8d5edfcc09192615}
+
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+double \hyperlink{classprocess_acef251d897e6cec1fe68d1bb59094013}{get\+\_\+time\+\_\+step} ()\hypertarget{classprocess_acef251d897e6cec1fe68d1bb59094013}{}\label{classprocess_acef251d897e6cec1fe68d1bb59094013}
+
+\begin{DoxyCompactList}\small\item\em Getter. \end{DoxyCompactList}\item 
+void \hyperlink{classprocess_a5fc8d61bdb3373b5f1a2b123bd8b2556}{write\+\_\+to\+\_\+plot} (Generator \&gen, unsigned int num\+\_\+plots, int coordinate)
+\begin{DoxyCompactList}\small\item\em For plotting. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ double $>$ \hyperlink{classprocess_a55c46e4b4ab1992ce09f4133fb484fd6}{next\+\_\+step} (Generator \&gen, std\+::vector$<$ double $>$ state, double t)=0
+\begin{DoxyCompactList}\small\item\em Function Next Step. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \hyperlink{classprocess_ac728fbbd27c9e9d0b590e18e132480af}{operator()} (Generator \&gen)
+\begin{DoxyCompactList}\small\item\em Operator() \end{DoxyCompactList}\item 
+void \hyperlink{classprocess_ac74ffbcbb3f61ed3c9b17df1e844e4ee}{print\+\_\+trajectory} (int coordinate)\hypertarget{classprocess_ac74ffbcbb3f61ed3c9b17df1e844e4ee}{}\label{classprocess_ac74ffbcbb3f61ed3c9b17df1e844e4ee}
+
+\begin{DoxyCompactList}\small\item\em Prints the results of the discretization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int {\bfseries dimension}\hypertarget{classprocess_ae6e8422beca0108090a599f2913146f4}{}\label{classprocess_ae6e8422beca0108090a599f2913146f4}
+
+\item 
+double \hyperlink{classprocess_a058283b545a3ac9733136b6f48177586}{time\+\_\+step}
+\item 
+double \hyperlink{classprocess_aee60ec54e570201c8c115005aa0a4f30}{time\+\_\+end}
+\item 
+unsigned int \hyperlink{classprocess_a90acfc839d6d7465c4aa311bb6970788}{num\+\_\+steps}
+\item 
+std\+::vector$<$ double $>$ \hyperlink{classprocess_ab4d01c8ea2e9c8285134786d32ae42aa}{state\+\_\+0}
+\item 
+std\+::vector$<$ double $>$ {\bfseries state}\hypertarget{classprocess_a99c7e9db851147c1bb7142ac0ebb8761}{}\label{classprocess_a99c7e9db851147c1bb7142ac0ebb8761}
+
+\item 
+std\+::vector$<$ double $>$ {\bfseries time\+\_\+grid}\hypertarget{classprocess_ac2ac343c501e1a021c83347357730f03}{}\label{classprocess_ac2ac343c501e1a021c83347357730f03}
+
+\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \hyperlink{classprocess_a63939362bca6b3ee7941c7219954719c}{trajectory}
+\item 
+bool {\bfseries computed}\hypertarget{classprocess_a9cd553ee907233430f82f82496dfc909}{}\label{classprocess_a9cd553ee907233430f82f82496dfc909}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Generator$>$\\*
+class process$<$ Generator $>$}
+
+A general class to code the discretization of a stochastic process on the time interval \mbox{[}0,T\mbox{]}. 
+
+The discretization scheme can be fixed either by chosing the time horizon (time\+\_\+end) or the number of steps (num\+\_\+steps). 
+
+\subsection{Member Function Documentation}
+\index{process@{process}!next\+\_\+step@{next\+\_\+step}}
+\index{next\+\_\+step@{next\+\_\+step}!process@{process}}
+\subsubsection[{\texorpdfstring{next\+\_\+step(\+Generator \&gen, std\+::vector$<$ double $>$ state, double t)=0}{next_step(Generator &gen, std::vector< double > state, double t)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Generator $>$ virtual std\+::vector$<$double$>$ {\bf process}$<$ Generator $>$\+::next\+\_\+step (
+\begin{DoxyParamCaption}
+\item[{Generator \&}]{gen, }
+\item[{std\+::vector$<$ double $>$}]{state, }
+\item[{double}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classprocess_a55c46e4b4ab1992ce09f4133fb484fd6}{}\label{classprocess_a55c46e4b4ab1992ce09f4133fb484fd6}
+
+
+Function Next Step. 
+
+Pure virtual function that will be over-\/written for every instance of process. Computes the value of the discretized process at time t + time\+\_\+step. The value of the discretized process at t is stored in state. 
+
+Implemented in \hyperlink{classcir__glasserman_aa3a48d9de6edccd4bfb8a52a5e5ad3df}{cir\+\_\+glasserman$<$ Generator $>$}, \hyperlink{classcir__o3_a77d0f79c0634f1d6cd19017e56eab451}{cir\+\_\+o3$<$ Generator $>$}, \hyperlink{classcir__o2_aff77d63ff38cedf7f720f4bf081b3812}{cir\+\_\+o2$<$ Generator $>$}, \hyperlink{classheston_a81ef826578f2a62320698e88cc2b1b3b}{heston$<$ Generator, Cir $>$}, \hyperlink{classcir_ad3d4f7db1a4448632a6fdbada17cc651}{cir$<$ Generator $>$}, and \hyperlink{classbrownian_afb58e5d64bc76193fcce54cf611f3671}{brownian$<$ Generator $>$}.
+
+\index{process@{process}!operator()@{operator()}}
+\index{operator()@{operator()}!process@{process}}
+\subsubsection[{\texorpdfstring{operator()(\+Generator \&gen)}{operator()(Generator &gen)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Generator $>$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ {\bf process}$<$ Generator $>$\+::operator() (
+\begin{DoxyParamCaption}
+\item[{Generator \&}]{gen}
+\end{DoxyParamCaption}
+)}\hypertarget{classprocess_ac728fbbd27c9e9d0b590e18e132480af}{}\label{classprocess_ac728fbbd27c9e9d0b590e18e132480af}
+
+
+Operator() 
+
+Overloads the operator (). Allows to draw a new instance of the discretized process. \index{process@{process}!write\+\_\+to\+\_\+plot@{write\+\_\+to\+\_\+plot}}
+\index{write\+\_\+to\+\_\+plot@{write\+\_\+to\+\_\+plot}!process@{process}}
+\subsubsection[{\texorpdfstring{write\+\_\+to\+\_\+plot(\+Generator \&gen, unsigned int num\+\_\+plots, int coordinate)}{write_to_plot(Generator &gen, unsigned int num_plots, int coordinate)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Generator $>$ void {\bf process}$<$ Generator $>$\+::write\+\_\+to\+\_\+plot (
+\begin{DoxyParamCaption}
+\item[{Generator \&}]{gen, }
+\item[{unsigned int}]{num\+\_\+plots, }
+\item[{int}]{coordinate}
+\end{DoxyParamCaption}
+)}\hypertarget{classprocess_a5fc8d61bdb3373b5f1a2b123bd8b2556}{}\label{classprocess_a5fc8d61bdb3373b5f1a2b123bd8b2556}
+
+
+For plotting. 
+
+Computes and plots num\+\_\+plot instances of the discretized process. The method writes the relevant data in a .dat file and calls gnuplot for plotting 
+
+\subsection{Member Data Documentation}
+\index{process@{process}!num\+\_\+steps@{num\+\_\+steps}}
+\index{num\+\_\+steps@{num\+\_\+steps}!process@{process}}
+\subsubsection[{\texorpdfstring{num\+\_\+steps}{num_steps}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Generator $>$ unsigned int {\bf process}$<$ Generator $>$\+::num\+\_\+steps\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classprocess_a90acfc839d6d7465c4aa311bb6970788}{}\label{classprocess_a90acfc839d6d7465c4aa311bb6970788}
+Number of steps in time discretization \index{process@{process}!state\+\_\+0@{state\+\_\+0}}
+\index{state\+\_\+0@{state\+\_\+0}!process@{process}}
+\subsubsection[{\texorpdfstring{state\+\_\+0}{state_0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Generator $>$ std\+::vector$<$double$>$ {\bf process}$<$ Generator $>$\+::state\+\_\+0\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classprocess_ab4d01c8ea2e9c8285134786d32ae42aa}{}\label{classprocess_ab4d01c8ea2e9c8285134786d32ae42aa}
+Initial value for the process at time t = 0 \index{process@{process}!time\+\_\+end@{time\+\_\+end}}
+\index{time\+\_\+end@{time\+\_\+end}!process@{process}}
+\subsubsection[{\texorpdfstring{time\+\_\+end}{time_end}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Generator $>$ double {\bf process}$<$ Generator $>$\+::time\+\_\+end\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classprocess_aee60ec54e570201c8c115005aa0a4f30}{}\label{classprocess_aee60ec54e570201c8c115005aa0a4f30}
+Simulation between 0 and time\+\_\+end \index{process@{process}!time\+\_\+step@{time\+\_\+step}}
+\index{time\+\_\+step@{time\+\_\+step}!process@{process}}
+\subsubsection[{\texorpdfstring{time\+\_\+step}{time_step}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Generator $>$ double {\bf process}$<$ Generator $>$\+::time\+\_\+step\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classprocess_a058283b545a3ac9733136b6f48177586}{}\label{classprocess_a058283b545a3ac9733136b6f48177586}
+Time step of the discretization \index{process@{process}!trajectory@{trajectory}}
+\index{trajectory@{trajectory}!process@{process}}
+\subsubsection[{\texorpdfstring{trajectory}{trajectory}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Generator $>$ std\+::vector$<$std\+::vector$<$double$>$ $>$ {\bf process}$<$ Generator $>$\+::trajectory\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classprocess_a63939362bca6b3ee7941c7219954719c}{}\label{classprocess_a63939362bca6b3ee7941c7219954719c}
+Vector of vectors used to compute the values taken by the process This choice is motivated by the mutli-\/dimensional Heston model 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/gregory/\+Desktop/\+Cours\+\_\+\+E\+K/\+P2/\+Pages\+\_\+projet/test\+\_\+git/proba\+\_\+num/src/process.\+h\end{DoxyCompactItemize}

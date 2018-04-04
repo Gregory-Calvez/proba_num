@@ -356,7 +356,7 @@ template<typename Generator> std::vector<double> cir_o3<Generator>::next_step(Ge
 *
 * This class implements an exact scheme of discretization of the CIR process.
 * It exploits the knowledge of the transition law of this process.
-* It can be found in a book of Paul Glasserman.
+* It can be found in the book by Paul Glasserman.
 */
 template <typename Generator> class cir_glasserman : public cir<Generator>
 {

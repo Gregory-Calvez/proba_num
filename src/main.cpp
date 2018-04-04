@@ -176,6 +176,71 @@ void test_mc_sobol(double cir_0, double x_0, double a, double k, double sigma, d
     mc.print();
 };
 
+void plot_graph_performance(double expiry, double strike, double cir_0, double x_0, double a, double k , double sigma, double rho,double r, char type, std::vector<int> num_steps, unsigned int cap, double precision, double exact_value){
+    // Initialize generator, random seed
+    std::random_device rd;
+    auto seed = rd();
+    std::mt19937_64 generator(seed);
+
+    std::vector<std::vector<double> > data = std::vector<std::vector<double> > ();
+
+    option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > * opt_o3 =
+        new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type);
+
+    option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > * opt_o2 =
+        new option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > (expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type);
+
+
+    for (unsigned int i = 0; i < num_steps.size(); ++i){
+        //CIR_O2
+        opt_o2->set_num_steps(num_steps.at(i));
+        monte_carlo<std::mt19937_64> mc(opt_o2);
+        mc.set_precision(precision);
+        mc.set_cap(cap);
+        mc.compute_control_variate(generator);
+        std::vector<double> temp = std::vector<double>();
+        temp.push_back(mc.empirical_mean);
+        temp.push_back(mc.empirical_mean - mc.ci_l_bound);
+
+        //CIR_03
+        opt_o3->set_num_steps(num_steps.at(i));
+        monte_carlo<std::mt19937_64> mc_3(opt_o3);
+        mc_3.set_precision(precision);
+        mc_3.set_cap(cap);
+
+        mc_3.compute_control_variate(generator);
+
+        temp.push_back(mc_3.empirical_mean);
+        temp.push_back(mc_3.empirical_mean - mc_3.ci_l_bound);
+
+        data.push_back(temp);
+    }
+    std::cout << "We have computed the trajectories. " << std::endl;
+
+    /// Writing the data into the plot file.
+    std::ofstream stream;
+    stream.open("plot.dat");
+    for (unsigned int i_n = 0; i_n < num_steps.size(); ++i_n ){
+        stream << 1./num_steps.at(i_n);
+        stream << "\t" << data.at(i_n).at(0);
+        stream << "\t" << data.at(i_n).at(1);
+        stream << "\t" << data.at(i_n).at(2);
+        stream << "\t" << data.at(i_n).at(3);
+        stream << "\n";
+    }
+    stream.close();
+    std::cout << "We have written the data. " <<std::endl;
+    stream.open("gnu");
+    stream << "set nokey\n" ;
+    stream << "set xlabel \"Inverse of number of steps\"\n";
+    stream << "plot ";
+    stream << "\"plot.dat\" using 1:2:3 with yerrorlines, \\\n";
+    stream << "\"plot.dat\" using 1:4:5 with yerrorlines, \\\n";
+    stream << exact_value << "with lines lt 3";
+    stream.close();
+    std::cout << "We have written the gnuplot file. " << std::endl;
+};
+
 
 int main(){
     /// Try heston with Glasserman
@@ -348,64 +413,6 @@ int main(){
     // mc.compute_control_variate(generator);
     // mc.print();
 
-/*
-    std::vector<int> num_steps = {5, 10, 15, 20, 30, 50, 100};
-    int cap = 1*1e3;
-    double precision = 1e-4;
-    double exact_value = 6.144;
-    std::vector<std::vector<double> > data = std::vector<std::vector<double> > ();
-
-    for (unsigned int i = 0; i < num_steps.size(); ++i){
-      //CIR_O2
-      opt->set_num_steps(num_steps.at(i));
-      monte_carlo<std::mt19937_64> mc(opt);
-      mc.set_precision(precision);
-      mc.set_cap(cap);
-      mc.compute(generator);
-    //   mc.compute_control_variate(generator);
-      std::vector<double> temp = std::vector<double>();
-      temp.push_back(mc.empirical_mean);
-      temp.push_back(mc.empirical_mean - mc.ci_l_bound);
-
-      //CIR_03
-      opt_3->set_num_steps(num_steps.at(i));
-      monte_carlo<std::mt19937_64> mc_3(opt_3);
-      mc_3.set_precision(precision);
-      mc_3.set_cap(cap);
-
-      mc_3.compute(generator);
-    //   mc_3.compute_control_variate(generator);
-
-      temp.push_back(mc_3.empirical_mean);
-      temp.push_back(mc_3.empirical_mean - mc_3.ci_l_bound);
-
-      data.push_back(temp);
-    }
-    std::cout << "We have computed the trajectories. " << std::endl;
-
-    std::ofstream stream;
-    stream.open("plot.dat");
-    for (unsigned int i_n = 0; i_n < num_steps.size(); ++i_n ){
-      stream << 1./num_steps.at(i_n);
-      stream << "\t" << data.at(i_n).at(0);
-      stream << "\t" << data.at(i_n).at(1);
-      stream << "\t" << data.at(i_n).at(2);
-      stream << "\t" << data.at(i_n).at(3);
-      stream << "\n";
-    }
-    stream.close();
-    std::cout << "We have written the data. " <<std::endl;
-    stream.open("gnu");
-    stream << "set nokey\n" ;
-    stream << "set xlabel \"Inverse of number of steps\"\n";
-    stream << "plot ";
-    stream << "\"plot.dat\" using 1:2:3 with yerrorlines, \\\n";
-    stream << "\"plot.dat\" using 1:4:5 with yerrorlines, \\\n";
-    stream << exact_value << "with lines lt 3";
-    stream.close();
-    std::cout << "We have written the gnuplot file. " << std::endl;
-*/
-
 
     /// Plotting graphs to measure the performances of the different schemes
     /// Let's define the parameters
@@ -418,8 +425,8 @@ int main(){
     double r = 0.02;
     double strike = 100.;
     double expiry = 1.;
-    unsigned int num_steps = 100;
-    unsigned int cap = 100000;
+
+
 
     /// Plotting som examples of trajectories.
     /// The last parameter is the coordinate : 0 = CIR, 2 = Heston
@@ -441,5 +448,12 @@ int main(){
     /// Test for Sobol
     // test_mc_sobol(cir_0, x_0, a, k, sigma, rho, r, strike,  expiry, num_steps, cap);
 
+    /// Test for Alfonsi's graphs
+    std::vector<int> num_steps = {5, 10, 15, 20, 30, 50, 100};
+    unsigned int cap = 1000;
+    double precision = 1e-4;
+    double exact_value = 6.144;
+    char type = 'e';
+    plot_graph_performance(expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type, num_steps, cap, precision, exact_value);
     return 0;
 };
