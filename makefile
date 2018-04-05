@@ -4,8 +4,8 @@ DEBUG = -g -DDEBUG
 CPP_FILES := $(wildcard src/*.cpp)
 OBJ_FILES := $(addprefix obj/,$(notdir $(CPP_FILES:.cpp=.o)))
 
-CFLAGS = -Wall -std=c++11 "-I/usr/local/include"
-LFLAGS = -Wall -std=c++11 "-L/usr/local/lib"
+CFLAGS = -Wall -std=c++11
+LFLAGS = -Wall -std=c++11
 
 LIBS = -lgsl -lgslcblas
 
@@ -28,5 +28,5 @@ cuda:
 	gnuplot --persist cuda/gnu
 
 efficientcpp:
-	g++ -std=c++11 -o cuda/efficient_cpp.out cuda/option_euro_o2.cpp
+	g++ -std=c++11 -o cuda/efficient_cpp.out cuda/efficient_cpp.cpp
 	cuda/efficient_cpp.out

@@ -8,7 +8,7 @@
 
 const int num_blocks = 1024;
 const int num_threads = 256;
-const int num_iterations = 1000;
+const int num_iterations = 10;
 
 
 __global__ void setup_states(curandState* states){
@@ -691,7 +691,7 @@ int main(void){
     float r = 0.02f;
     float strike = 100.0f;
     float expiry = 1.0f;
-    char type = 'a';
+    char type = 'e';
 
     int num_points = 6;
     int num_steps_array[num_points];
@@ -702,9 +702,14 @@ int main(void){
     num_steps_array[4] = 50;
     num_steps_array[5] = 100;
 
-    float exact_value = 4.0f;
+    float exact_value = 6.144f;
 
-    cuda_plot_graph_performance(expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type, num_steps_array, num_points, exact_value);
+    /// Test for Alfonsi's graph
+    // cuda_plot_graph_performance(expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type, num_steps_array, num_points, exact_value);
 
+    /// Example Asian option.
+    float output[3];
+    unsigned int num_steps = 20;
+    wrapper_kernel_o3(output, x_0, cir_0, r, a, k, sigma, rho, expiry, strike, num_steps, 'a');
     return 0;
 }

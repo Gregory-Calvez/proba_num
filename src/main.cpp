@@ -243,177 +243,6 @@ void plot_graph_performance(double expiry, double strike, double cir_0, double x
 
 
 int main(){
-    /// Try heston with Glasserman
-    // double k = 0.5;
-    // double a = 0.02;
-    // double sigma = 0.2;
-    // double x_0 = 100;
-    // double cir_0 = .04;
-    // double rho = -0.3;
-    // double r = 0.02;
-    // heston<std::mt19937_64, cir_glasserman<std::mt19937_64> > h = heston<std::mt19937_64, cir_glasserman<std::mt19937_64> > (cir_0, x_0, a, k , sigma, rho, r);
-    // h.set_num_steps(100);
-    // h(generator);
-    // h.write_to_plot(generator, 10, 2);
-    //h.print_trajectory(2);
-
-    //Try Option with Glasserman
-    // double strike = 100.;
-    // double maturity = 1.;
-    // char type = 'a';
-    // option<std::mt19937_64, heston<std::mt19937_64, cir_glasserman<std::mt19937_64> > > * opt =
-    //   new option<std::mt19937_64, heston<std::mt19937_64, cir_glasserman<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
-    //
-    // for(unsigned int i = 0; i<n; ++i){
-    //     std::cout << (*opt)(generator) << std::endl;
-    // };
-    // std::cout << std::endl;
-    //
-    // std::cout << "Test of Monte-Carlo on an European option on price" << std::endl;
-    // monte_carlo<std::mt19937_64> mc(opt);
-    // mc.set_precision(0.1);
-    // mc.set_cap(10000);
-    // mc.compute(generator);
-    // mc.print();
-    // std::cout << std::endl;
-
-    /// Try heston with CIR_O2
-    // The parameters are chosen to reproduce the graphs of Alfonsi p.26
-    // double k = 0.5;
-    // double a = 0.02;
-    // double sigma = 0.4;
-    // double x_0 = 100;
-    // double cir_0 = .04;
-    // double rho = -0.5;
-    // double r = 0.02;
-    //heston<std::mt19937_64, cir_o2<std::mt19937_64> > h = heston<std::mt19937_64, cir_o2<std::mt19937_64> > (cir_0, x_0, a, k , sigma, rho, r);
-    //h.set_num_steps(10);
-    //h(generator);
-    //h.write_to_plot(generator, 10, 2);
-    //h.print_trajectory(2);
-
-    //Try Option with CIR_O2
-    // double k = 0.5;
-    // double a = 0.02;
-    // double sigma = 0.4;
-    // double x_0 = 100;
-    // double cir_0 = .04;
-    // double rho = -0.5;
-    // double r = 0.02;
-    // double strike = 100.;
-    // double maturity = 1.;
-    // char type = 'e';
-    // option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > * opt =
-    //   new option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
-    //
-    // opt->set_num_steps(10);
-    //
-    // std::cout << "Test of Monte-Carlo on an European option (put) on price" << std::endl;
-    // monte_carlo<std::mt19937_64> mc(opt);
-    // mc.set_precision(0.01);
-    // mc.set_cap(1000000);
-    // mc.compute(generator);
-    // mc.print();
-    // std::cout << std::endl;
-
-    //Try Option with CIR_O3
-    // double k = 0.5;
-    // double a = 0.02;
-    // double sigma = 0.4;
-    // double x_0 = 100;
-    // double cir_0 = .04;
-    // double rho = -0.5;
-    // double r = 0.02;
-    // double strike = 100.;
-    // double maturity = 1.;
-    // char type = 'e';
-    // option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > * opt =
-    //   new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
-    //
-    // opt->set_num_steps(20);
-    //
-    // std::cout << "Test of Monte-Carlo on an European option (put) on price" << std::endl;
-    // monte_carlo<std::mt19937_64> mc(opt);
-    // mc.set_precision(0.1);
-    // mc.set_cap(100000);
-    // mc.compute(generator);
-    // mc.print();
-    // std::cout << std::endl;
-
-    //Try Closed formula for first order moment of log spot (log_spot_one)
-    // double k = 0.5;
-    // double a = 0.02;
-    // double sigma = 2.0;
-    // double x_0 = 100.;
-    // double cir_0 = .04;
-    // double rho = -1.;
-    // double r = 0.02;
-    // double strike = 100.;
-    // double maturity = 1.;
-    // char type = 'e';
-    // option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > * opt =
-    //   new option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
-    //
-    // opt->set_num_steps(20);
-    //
-    // double theo = opt->theoretical_log_spot_one();
-    //
-    // std::cout<<"Test for the closed formula of first order moment of log spot" <<std::endl;
-    // std::cout << "Theoretical Value" << "\t" << theo << std::endl;
-    // monte_carlo<std::mt19937_64> mc(opt);
-    // mc.set_precision(0.01);
-    // mc.set_cap(10000);
-    // mc.compute(generator);
-    // mc.print();
-    // std::cout << std::endl;
-    //
-    //
-
-
-
-    // option<sobol_generator, heston<sobol_generator, cir_o2<sobol_generator> > > * opt =
-    //   new option<sobol_generator, heston<sobol_generator, cir_o2<sobol_generator> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
-    //
-    // // // option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > * opt_3 =
-    // // //     new option<std::mt19937_64, heston<std::mt19937_64, cir_o3<std::mt19937_64> > > (maturity, strike, cir_0, x_0, a, k , sigma, rho, r, type);
-    //
-    // unsigned int cap = 3*1e5;
-    // unsigned num_steps = 100;
-    // double precision = 1e-5;
-
-    // opt->set_num_steps(num_steps);
-    // monte_carlo<sobol_generator> mc(opt);
-    // mc.set_precision(precision);
-    // mc.set_cap(cap);
-    // std::cout << "Monte Carlo without control variance on CIR_O2 Heston Asian" << std::endl;
-    // mc.compute(sobol);
-    // mc.print();
-
-    //
-    // normal<sobol_generator>* norm_sobol = new normal<sobol_generator>(3, 5);
-    // monte_carlo<sobol_generator> mc_norm(norm_sobol);
-    // mc_norm.set_precision(precision);
-    // mc_norm.set_cap(cap);
-    // std::cout << "Monte Carlo without control variance on N(3, 5)" << std::endl;
-    // mc_norm.compute(sobol);
-    // mc_norm.print();
-    //
-    //
-    // normal_five_moments<sobol_generator>* norm_5 = new normal_five_moments<sobol_generator>();
-    // monte_carlo<sobol_generator> mc_5(norm_5);
-    // mc_5.set_precision(precision);
-    // mc_5.set_cap(cap);
-    // std::cout << "Monte Carlo without control variance on Normal five moments / Should work" << std::endl;
-    // mc_5.compute(sobol);
-    // mc_5.print();
-    //
-
-    // std::cout << std::endl;
-    // std::cout << "Monte Carlo with control variance" <<std::endl;
-    // mc.compute_control_variate(generator);
-    // mc.print();
-
-
     /// Plotting graphs to measure the performances of the different schemes
     /// Let's define the parameters
     double k = 0.5;
@@ -425,7 +254,8 @@ int main(){
     double r = 0.02;
     double strike = 100.;
     double expiry = 1.;
-
+    unsigned int num_steps = 10;
+    unsigned int cap = 10000;
 
 
     /// Plotting som examples of trajectories.
@@ -440,7 +270,7 @@ int main(){
     // compare_reduction_variance_glasserman(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'a', cap);
 
     // compare_reduction_variance_o2(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'e', cap);
-    // compare_reduction_variance_o3(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'e', cap);
+    // compare_reduction_variance_o3(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'a', cap);
 
     /// One shot to compare with cuda code
     // test_for_cuda();
@@ -448,12 +278,14 @@ int main(){
     /// Test for Sobol
     // test_mc_sobol(cir_0, x_0, a, k, sigma, rho, r, strike,  expiry, num_steps, cap);
 
+
     /// Test for Alfonsi's graphs
-    std::vector<int> num_steps = {5, 10, 15, 20, 30, 50, 100};
-    unsigned int cap = 1000;
-    double precision = 1e-4;
-    double exact_value = 6.144;
-    char type = 'e';
-    plot_graph_performance(expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type, num_steps, cap, precision, exact_value);
+    // std::vector<int> num_steps = {5, 10, 15, 20, 30, 50, 100};
+    // unsigned int cap = 1000;
+    // double precision = 1e-4;
+    // double exact_value = 6.144;
+    // char type = 'e';
+    // plot_graph_performance(expiry, strike, cir_0, x_0, a, k , sigma, rho, r, type, num_steps, cap, precision, exact_value);
+
     return 0;
 };
