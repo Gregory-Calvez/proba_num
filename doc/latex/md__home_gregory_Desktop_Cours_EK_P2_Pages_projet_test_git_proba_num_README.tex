@@ -1,0 +1,75 @@
+Etudier le schéma d’ordre faible élevé introduit dans \mbox{[}1\mbox{]} et étendu dans \mbox{[}2\mbox{]} pour les modèles affines.
+\begin{DoxyItemize}
+\item Appliquer cette méthode pour le pricing d’options asiatiques dans le modèle de Heston. Comparer avec différentes méthodes de réduction de variance.
+\item Comment mettre en œuvre cette méthode dans le cadre Quasi-\/\+Monte Carlo ? Tester numériquement.
+\end{DoxyItemize}
+
+\mbox{[}1\mbox{]} S. Ninomiya and N. Victoir. Weak approximation of stochastic differential equations and application to derivative pricing. Appl. Math. Finance, 15(1-\/2) \+:107–121, 2008. \mbox{[}2\mbox{]} A. Alfonsi. High order discretization schemes for the cir process \+: Application to affine term structure and heston models. Math. Comput., 79(269) \+:209–237, 2010.
+
+\href{https://github.com/Gregory-Calvez/proba_num}{\tt https\+://github.\+com/\+Gregory-\/\+Calvez/proba\+\_\+num}
+
+\subsection*{Prérequis}
+
+Ce projet utilise principalement la S\+TL du C++11. Certains éléments doivent être installés pour reproduire tous les graphes et résultats du rapport.
+\begin{DoxyItemize}
+\item G\+N\+Uplot. Les graphes sont générés à partir de G\+N\+Uplot. \href{http://www.gnuplot.info/}{\tt http\+://www.\+gnuplot.\+info/}
+\item G\+SL. G\+NU Scientific Library. \href{https://www.gnu.org/software/gsl/}{\tt https\+://www.\+gnu.\+org/software/gsl/}
+\item N\+V\+I\+D\+IA Toolkit. \href{https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1604&target_type=runfilelocal}{\tt https\+://developer.\+nvidia.\+com/cuda-\/downloads?target\+\_\+os=\+Linux\&target\+\_\+arch=x86\+\_\+64\&target\+\_\+distro=\+Ubuntu\&target\+\_\+version=1604\&target\+\_\+type=runfilelocal}. Les calculs sur G\+PU du rapport ont été faits avec la version 8.\+0 du Toolkit N\+V\+I\+I\+DA pour des raisons de compatibilités avec le G\+PU. Tout devrait fonctionner avec le Toolkit le plus récent.
+\end{DoxyItemize}
+
+\subsection*{Structure du projet et compilation}
+
+\subsubsection*{Structure du projet}
+
+Le projet se sépare en deux parties distinctes\+:
+\begin{DoxyItemize}
+\item une partie reposant sur la programmation orientée objet en C++. Les sources sont disponibles dans le dossier src/
+\item une partie reposant sur du calcul parallélisé en C\+U\+D\+A/C. Tout est regroupé dans le dossier cuda/
+\end{DoxyItemize}
+
+Un makefile, rédigé à la main, comprend toutes les commandes nécessaires pour reproduire les résultats du rapport.
+
+Des fichiers annexes sont présents, pour les tracés des graphes notamment. Enfin, nous avons conservé dans le dossier du projet des outputs de la console (output/) et des graphes générés (img/) que nous avons réutilisés dans le rapport.
+
+Une documentation de la partie C++ réalisée avec Doxygen est disponible dans le dossier doc/.
+
+\subsubsection*{Compilation}
+
+Dans le fichier src/main.\+cpp, nous avons écrit toutes les fonctions permettant de tester la partie C++ du projet. Des lignes de la fonction main sont commentées, il suffit de dé-\/commenter la partie que vous voulez tester et de compiler et lancer l\textquotesingle{}exécutable. Pour ce faire \+: \textquotesingle{}\textquotesingle{}\textquotesingle{} make -\/B run \textquotesingle{}\textquotesingle{}\textquotesingle{}
+
+Si un graphe doit être généré pendant l\textquotesingle{}exécution et que vous voulez le récupérer, utilsez la commande \+: \textquotesingle{}\textquotesingle{}\textquotesingle{} make -\/B plot \textquotesingle{}\textquotesingle{}\textquotesingle{}
+
+La partie C\+U\+DA peut être compilée et lancée à partir du même makefile. Par exemple, pour reproduire les derniers graphes du rapport, utilisez la commande \+: \textquotesingle{}\textquotesingle{}\textquotesingle{} make -\/B cuda \textquotesingle{}\textquotesingle{}\textquotesingle{}
+
+Attention, l\textquotesingle{}exécution de certaines partie du code peut être très longue (20 min pour les derniers graphes du rapport en C\+U\+DA, ou certains Monte Carlo).
+
+\subsubsection*{Test sur la partie C++}
+
+Nous décrivons ici les tests que vous pouvez effectuer pour tester notre code. Touts les fonctions sont déjà écrites, il suffit de décommenter certaines partie du main.
+
+
+\begin{DoxyItemize}
+\item Plotting some examples of trajectories. Vous avez la possibilités de tracer une dizaine de trajectoires simulées par les schémas de discrétisation de Ninomiya-\/\+Victoir et de Glasserman. Il faut plotter les graphes. Chaque ligne doit être décommentée séparément.
+\item Testing the control variates. Si vous décommentez les 4 lignes qui suivent ce commentaire, vous obtiendrez en console les estimations et les intervalles de confiance du prix d\textquotesingle{}une option avec et sans réduction de variance, pour un schéma d\textquotesingle{}ordre faible et le schéma de Glasserman, pour des options asiatiques et des options européennes.
+\item Test for cuda. Cette fonction et cet appel nous a permis de comparer les temps de calcul entre le C\+U\+DA et le C++. Il est probablement inutile de le relancer.
+\item Test for Sobol. Cet appel permet d\textquotesingle{}optenir un Q\+MC pour estimer le prix d\textquotesingle{}une option. Les résultats numériques ne sont pas satisfaisants. Cf rapport.
+\item Test for Alfonsi\textquotesingle{}s graph. Cette portion du main permet de reproduire les graphes p.\+26-\/27 de l\textquotesingle{}article de M. Alfonsi. Les temps de calculs sont absolument prohibitif mais vous pouvez le tester avec un cap sur le nombre d\textquotesingle{}itération faible. Il y a ici un graph à tracer.
+\end{DoxyItemize}
+
+\subsubsection*{Test sur la partie C\+U\+D\+A/C}
+
+Ici on décrit les tests présents dans le main du fichier cuda/cuda\+\_\+kernels.\+cu.
+
+Pour les lancers, le toolkit N\+V\+I\+D\+IA est nécessaire, la commande du makefile est \+: \textquotesingle{}\textquotesingle{}\textquotesingle{} make -\/B cuda \textquotesingle{}\textquotesingle{}\textquotesingle{} Cette fois, les graphes sont générées par cette seule commande.
+
+
+\begin{DoxyItemize}
+\item Test for Alfonsi\textquotesingle{}s graph. Idem que dans la partie C++. Les temps de calculs deviennent raisonnables.
+\item Example Asian option. Un calcul MC d\textquotesingle{}une option asiatique en calcul parallélisés. Les résultats sont donnés en console. Les graphes ne représentent rien.
+\end{DoxyItemize}
+
+Une remarque sur le nombre de simulations \+: trois variables globales, définies au début du fichier cuda\+\_\+kernels.\+cu permettent de définir le nombre de blocks, le nombre de threads par block et le nombre de simulations par thread pour les calculs de Monte Carlo. Nous les avons choisi pour accélérer le temps de calcul sur un G\+PU donné, ces paramètres peuvent être peut-\/être modifiés
+
+\subsection*{Auteurs}
+
+Elie Bohbot Grégory Calvez 

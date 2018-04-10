@@ -144,7 +144,6 @@ void test_for_cuda(){
     double r = 0.02;
     double strike = 100.;
     double expiry = 1.;
-    unsigned int num_steps = 100;
     unsigned int cap = 2621440;
 
     // Initialize generator, random seed
@@ -242,6 +241,25 @@ void plot_graph_performance(double expiry, double strike, double cir_0, double x
 };
 
 
+void pricing_asian(double cir_0, double x_0, double a, double k, double sigma, double rho, double r, double strike, double expiry, unsigned int num_steps, unsigned int cap){
+    // Initialize generator, random seed
+    std::random_device rd;
+    auto seed = rd();
+    std::mt19937_64 generator(seed);
+
+    // Construct Heston
+    option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > * opt = new option<std::mt19937_64, heston<std::mt19937_64, cir_o2<std::mt19937_64> > > (expiry, strike, cir_0, x_0, a, k , sigma, rho, r, 'a');
+    heston<std::mt19937_64, cir_o2<std::mt19937_64> > h = heston<std::mt19937_64, cir_o2<std::mt19937_64> > (cir_0, x_0, a, k , sigma, rho, r);
+    h.set_num_steps(num_steps);
+    opt->set_num_steps(num_steps);
+    monte_carlo<std::mt19937_64> mc(opt);
+    mc.set_precision(0.0001);
+    mc.set_cap(cap);
+    std::cout << "Pricing an Asian option. " << std::endl;
+    mc.compute(generator);
+    mc.print();
+};
+
 int main(){
     /// Plotting graphs to measure the performances of the different schemes
     /// Let's define the parameters
@@ -254,18 +272,20 @@ int main(){
     double r = 0.02;
     double strike = 100.;
     double expiry = 1.;
-    unsigned int num_steps = 10;
-    unsigned int cap = 10000;
+    unsigned int num_steps = 100;
+    unsigned int cap = 100000;
 
 
-    /// Plotting som examples of trajectories.
+    /// Plotting some examples of trajectories.
     /// The last parameter is the coordinate : 0 = CIR, 2 = Heston
+    // std::cout << "This plots some examples of trajectories for the Heston/Cir processes" << std::endl;
     // plot_heston_glasserman(cir_0, x_0, a, k, sigma, rho, r, num_steps, 2);
     // plot_heston_o2(cir_0, x_0, a, k, sigma, rho, r, num_steps, 0);
     // plot_heston_o3(cir_0, x_0, a, k, sigma, rho, r, num_steps, 2);
 
 
     /// Testing the control variates
+    // std::cout << "This compares the variances for with/out control variates for two options." << std::endl;
     // compare_reduction_variance_glasserman(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'e', cap);
     // compare_reduction_variance_glasserman(cir_0, x_0, a, k, sigma, rho, r, strike, expiry, num_steps, 'a', cap);
 
@@ -276,6 +296,8 @@ int main(){
     // test_for_cuda();
 
     /// Test for Sobol
+    // std::cout << "This runs one monte carlo with the sobol sequence as RNG" << std::endl;
+    // cap  = 10000;
     // test_mc_sobol(cir_0, x_0, a, k, sigma, rho, r, strike,  expiry, num_steps, cap);
 
 
